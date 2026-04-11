@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using ExaminationSystem.Domin.Comman;
+using ExaminationSystem.Domin.Common;
 using ExaminationSystem.Domin.Enums;
 
 namespace ExaminationSystem.Domin.Entitys

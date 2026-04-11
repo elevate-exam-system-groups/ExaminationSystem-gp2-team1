@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ExaminationSystem.Domin.Comman
+namespace ExaminationSystem.Domin.Common
 {
     public class BaseEntity
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
     }
 }

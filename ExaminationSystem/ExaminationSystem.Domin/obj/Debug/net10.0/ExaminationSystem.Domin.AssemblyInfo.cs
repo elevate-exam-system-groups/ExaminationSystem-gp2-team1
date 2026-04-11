@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ExaminationSystem.Domin")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7102a6571fff5fc232843005acdc2f56ffe2838b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e9057d0ebce3e87821c3cbd8a1c171c3fc0cf759")]
 [assembly: System.Reflection.AssemblyProductAttribute("ExaminationSystem.Domin")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ExaminationSystem.Domin")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
