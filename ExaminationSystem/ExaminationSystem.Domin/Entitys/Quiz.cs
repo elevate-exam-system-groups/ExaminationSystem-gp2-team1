@@ -23,7 +23,7 @@ namespace ExaminationSystem.Domin.Entitys
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
 
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;ُ
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime UpdatedAt { get; set; }
 
         public virtual ICollection<Question> Questions { get; set; } = new HashSet<Question>();
