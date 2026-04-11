@@ -4,6 +4,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ExaminationSystem.Entities
 {
+    /// <summary>
+    /// Tracks which students are enrolled in which diploma programs
+    /// </summary>
     public class StudentDiplomaEnrollment : AuditableEntity
     {
         [Required]
@@ -15,10 +18,6 @@ namespace ExaminationSystem.Entities
         public Guid DiplomaId { get; set; }
 
         public DateTime EnrolledAt { get; set; } = DateTime.UtcNow;
-
-        public int? CompletedQuizzesCount { get; set; } = 0;
-
-        public double? AverageScore { get; set; }
 
         // Navigation properties
         public virtual User Student { get; set; } = null!;
