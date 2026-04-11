@@ -204,12 +204,31 @@ nCrunchTemp_*
 !.vscode/extensions.json
 .history/
 
-# ============================================================
-# WHAT IS INTENTIONALLY TRACKED (never accidentally ignore):
-#   ✅ *.cs, *.csproj, *.sln
-#   ✅ appsettings.json (base config, no secrets)
-#   ✅ Migrations/ folder (EF Core migrations are source code)
-#   ✅ wwwroot/ static assets
-#   ✅ Dockerfile, docker-compose.yml (not override)
-#   ✅ global.json, Directory.Build.props, Directory.Packages.props
-# ============================================================
+# Build output
+bin/
+obj/
+
+# Visual Studio files
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+*.lock.json
+
+# Runtime & logs
+*.log
+*.cache
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# User-specific
+launchSettings.json
+appsettings.Development.json
