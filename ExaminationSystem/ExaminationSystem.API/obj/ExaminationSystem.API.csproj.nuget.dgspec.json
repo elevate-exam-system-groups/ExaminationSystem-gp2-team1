@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\1\\source\\repos\\ExaminationSystem-gp2-team1\\ExaminationSystem\\ExaminationSystem.API\\ExaminationSystem.API.csproj": {}
+    "C:\\Users\\wwwmo\\source\\repos\\ExaminationSystem-gp2-team1\\ExaminationSystem\\ExaminationSystem.API\\ExaminationSystem.API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\1\\source\\repos\\ExaminationSystem-gp2-team1\\ExaminationSystem\\ExaminationSystem.API\\ExaminationSystem.API.csproj": {
+    "C:\\Users\\wwwmo\\source\\repos\\ExaminationSystem-gp2-team1\\ExaminationSystem\\ExaminationSystem.API\\ExaminationSystem.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\1\\source\\repos\\ExaminationSystem-gp2-team1\\ExaminationSystem\\ExaminationSystem.API\\ExaminationSystem.API.csproj",
+        "projectUniqueName": "C:\\Users\\wwwmo\\source\\repos\\ExaminationSystem-gp2-team1\\ExaminationSystem\\ExaminationSystem.API\\ExaminationSystem.API.csproj",
         "projectName": "ExaminationSystem.API",
-        "projectPath": "C:\\Users\\1\\source\\repos\\ExaminationSystem-gp2-team1\\ExaminationSystem\\ExaminationSystem.API\\ExaminationSystem.API.csproj",
-        "packagesPath": "C:\\Users\\1\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\1\\source\\repos\\ExaminationSystem-gp2-team1\\ExaminationSystem\\ExaminationSystem.API\\obj\\",
+        "projectPath": "C:\\Users\\wwwmo\\source\\repos\\ExaminationSystem-gp2-team1\\ExaminationSystem\\ExaminationSystem.API\\ExaminationSystem.API.csproj",
+        "packagesPath": "C:\\Users\\wwwmo\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\wwwmo\\source\\repos\\ExaminationSystem-gp2-team1\\ExaminationSystem\\ExaminationSystem.API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\1\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\wwwmo\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -34,11 +34,11 @@
             "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\1\\source\\repos\\ExaminationSystem-gp2-team1\\ExaminationSystem\\ExaminationSystem.Application\\ExaminationSystem.Application.csproj": {
-                "projectPath": "C:\\Users\\1\\source\\repos\\ExaminationSystem-gp2-team1\\ExaminationSystem\\ExaminationSystem.Application\\ExaminationSystem.Application.csproj"
+              "C:\\Users\\wwwmo\\source\\repos\\ExaminationSystem-gp2-team1\\ExaminationSystem\\ExaminationSystem.Application\\ExaminationSystem.Application.csproj": {
+                "projectPath": "C:\\Users\\wwwmo\\source\\repos\\ExaminationSystem-gp2-team1\\ExaminationSystem\\ExaminationSystem.Application\\ExaminationSystem.Application.csproj"
               },
-              "C:\\Users\\1\\source\\repos\\ExaminationSystem-gp2-team1\\ExaminationSystem\\ExaminationSystem.Infrastructure\\ExaminationSystem.Infrastructure.csproj": {
-                "projectPath": "C:\\Users\\1\\source\\repos\\ExaminationSystem-gp2-team1\\ExaminationSystem\\ExaminationSystem.Infrastructure\\ExaminationSystem.Infrastructure.csproj"
+              "C:\\Users\\wwwmo\\source\\repos\\ExaminationSystem-gp2-team1\\ExaminationSystem\\ExaminationSystem.Infrastructure\\ExaminationSystem.Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\wwwmo\\source\\repos\\ExaminationSystem-gp2-team1\\ExaminationSystem\\ExaminationSystem.Infrastructure\\ExaminationSystem.Infrastructure.csproj"
               }
             }
           }
@@ -502,20 +502,20 @@
         }
       }
     },
-    "C:\\Users\\1\\source\\repos\\ExaminationSystem-gp2-team1\\ExaminationSystem\\ExaminationSystem.Application\\ExaminationSystem.Application.csproj": {
+    "C:\\Users\\wwwmo\\source\\repos\\ExaminationSystem-gp2-team1\\ExaminationSystem\\ExaminationSystem.Application\\ExaminationSystem.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\1\\source\\repos\\ExaminationSystem-gp2-team1\\ExaminationSystem\\ExaminationSystem.Application\\ExaminationSystem.Application.csproj",
+        "projectUniqueName": "C:\\Users\\wwwmo\\source\\repos\\ExaminationSystem-gp2-team1\\ExaminationSystem\\ExaminationSystem.Application\\ExaminationSystem.Application.csproj",
         "projectName": "ExaminationSystem.Application",
-        "projectPath": "C:\\Users\\1\\source\\repos\\ExaminationSystem-gp2-team1\\ExaminationSystem\\ExaminationSystem.Application\\ExaminationSystem.Application.csproj",
-        "packagesPath": "C:\\Users\\1\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\1\\source\\repos\\ExaminationSystem-gp2-team1\\ExaminationSystem\\ExaminationSystem.Application\\obj\\",
+        "projectPath": "C:\\Users\\wwwmo\\source\\repos\\ExaminationSystem-gp2-team1\\ExaminationSystem\\ExaminationSystem.Application\\ExaminationSystem.Application.csproj",
+        "packagesPath": "C:\\Users\\wwwmo\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\wwwmo\\source\\repos\\ExaminationSystem-gp2-team1\\ExaminationSystem\\ExaminationSystem.Application\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\1\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\wwwmo\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -532,8 +532,8 @@
             "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\1\\source\\repos\\ExaminationSystem-gp2-team1\\ExaminationSystem\\ExaminationSystem.Domin\\ExaminationSystem.Domin.csproj": {
-                "projectPath": "C:\\Users\\1\\source\\repos\\ExaminationSystem-gp2-team1\\ExaminationSystem\\ExaminationSystem.Domin\\ExaminationSystem.Domin.csproj"
+              "C:\\Users\\wwwmo\\source\\repos\\ExaminationSystem-gp2-team1\\ExaminationSystem\\ExaminationSystem.Domin\\ExaminationSystem.Domin.csproj": {
+                "projectPath": "C:\\Users\\wwwmo\\source\\repos\\ExaminationSystem-gp2-team1\\ExaminationSystem\\ExaminationSystem.Domin\\ExaminationSystem.Domin.csproj"
               }
             }
           }
@@ -848,20 +848,20 @@
         }
       }
     },
-    "C:\\Users\\1\\source\\repos\\ExaminationSystem-gp2-team1\\ExaminationSystem\\ExaminationSystem.Domin\\ExaminationSystem.Domin.csproj": {
+    "C:\\Users\\wwwmo\\source\\repos\\ExaminationSystem-gp2-team1\\ExaminationSystem\\ExaminationSystem.Domin\\ExaminationSystem.Domin.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\1\\source\\repos\\ExaminationSystem-gp2-team1\\ExaminationSystem\\ExaminationSystem.Domin\\ExaminationSystem.Domin.csproj",
+        "projectUniqueName": "C:\\Users\\wwwmo\\source\\repos\\ExaminationSystem-gp2-team1\\ExaminationSystem\\ExaminationSystem.Domin\\ExaminationSystem.Domin.csproj",
         "projectName": "ExaminationSystem.Domin",
-        "projectPath": "C:\\Users\\1\\source\\repos\\ExaminationSystem-gp2-team1\\ExaminationSystem\\ExaminationSystem.Domin\\ExaminationSystem.Domin.csproj",
-        "packagesPath": "C:\\Users\\1\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\1\\source\\repos\\ExaminationSystem-gp2-team1\\ExaminationSystem\\ExaminationSystem.Domin\\obj\\",
+        "projectPath": "C:\\Users\\wwwmo\\source\\repos\\ExaminationSystem-gp2-team1\\ExaminationSystem\\ExaminationSystem.Domin\\ExaminationSystem.Domin.csproj",
+        "packagesPath": "C:\\Users\\wwwmo\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\wwwmo\\source\\repos\\ExaminationSystem-gp2-team1\\ExaminationSystem\\ExaminationSystem.Domin\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\1\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\wwwmo\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -1190,20 +1190,20 @@
         }
       }
     },
-    "C:\\Users\\1\\source\\repos\\ExaminationSystem-gp2-team1\\ExaminationSystem\\ExaminationSystem.Infrastructure\\ExaminationSystem.Infrastructure.csproj": {
+    "C:\\Users\\wwwmo\\source\\repos\\ExaminationSystem-gp2-team1\\ExaminationSystem\\ExaminationSystem.Infrastructure\\ExaminationSystem.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\1\\source\\repos\\ExaminationSystem-gp2-team1\\ExaminationSystem\\ExaminationSystem.Infrastructure\\ExaminationSystem.Infrastructure.csproj",
+        "projectUniqueName": "C:\\Users\\wwwmo\\source\\repos\\ExaminationSystem-gp2-team1\\ExaminationSystem\\ExaminationSystem.Infrastructure\\ExaminationSystem.Infrastructure.csproj",
         "projectName": "ExaminationSystem.Infrastructure",
-        "projectPath": "C:\\Users\\1\\source\\repos\\ExaminationSystem-gp2-team1\\ExaminationSystem\\ExaminationSystem.Infrastructure\\ExaminationSystem.Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\1\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\1\\source\\repos\\ExaminationSystem-gp2-team1\\ExaminationSystem\\ExaminationSystem.Infrastructure\\obj\\",
+        "projectPath": "C:\\Users\\wwwmo\\source\\repos\\ExaminationSystem-gp2-team1\\ExaminationSystem\\ExaminationSystem.Infrastructure\\ExaminationSystem.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\wwwmo\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\wwwmo\\source\\repos\\ExaminationSystem-gp2-team1\\ExaminationSystem\\ExaminationSystem.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\1\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\wwwmo\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -1220,8 +1220,8 @@
             "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\1\\source\\repos\\ExaminationSystem-gp2-team1\\ExaminationSystem\\ExaminationSystem.Application\\ExaminationSystem.Application.csproj": {
-                "projectPath": "C:\\Users\\1\\source\\repos\\ExaminationSystem-gp2-team1\\ExaminationSystem\\ExaminationSystem.Application\\ExaminationSystem.Application.csproj"
+              "C:\\Users\\wwwmo\\source\\repos\\ExaminationSystem-gp2-team1\\ExaminationSystem\\ExaminationSystem.Application\\ExaminationSystem.Application.csproj": {
+                "projectPath": "C:\\Users\\wwwmo\\source\\repos\\ExaminationSystem-gp2-team1\\ExaminationSystem\\ExaminationSystem.Application\\ExaminationSystem.Application.csproj"
               }
             }
           }
