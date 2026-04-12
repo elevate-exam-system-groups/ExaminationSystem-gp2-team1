@@ -1,4 +1,5 @@
 using ExaminationSystem.Domin.Comman;
+using ExaminationSystem.Domin.Entities.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -18,8 +19,7 @@ namespace ExaminationSystem.Entities
         /// Status: "in_progress", "submitted", "timed_out"
         /// </summary>
         [Required]
-        [MaxLength(20)]
-        public string Status { get; set; } = "in_progress";
+        public QuizAttemptStatus Status { get; set; } = QuizAttemptStatus.in_progress;
 
         public DateTime StartedAt { get; set; } = DateTime.UtcNow;
 
@@ -30,7 +30,7 @@ namespace ExaminationSystem.Entities
         /// <summary>
         /// Final score (percentage)
         /// </summary>
-        public int? Score { get; set; }
+        public decimal? Score { get; set; }
 
         /// <summary>
         /// Whether the student passed (score >= quiz.PassScore)

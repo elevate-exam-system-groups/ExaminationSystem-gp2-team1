@@ -1,4 +1,5 @@
 ﻿using ExaminationSystem.Domin.Comman;
+using ExaminationSystem.Domin.Entities.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -33,8 +34,7 @@ namespace ExaminationSystem.Entities
         /// Account status: "pending", "active", or "locked"
         /// </summary>
         [Required]
-        [MaxLength(20)]
-        public string Status { get; set; } = "pending";
+        public AccountStatus Status { get; set; } = AccountStatus.pending;
 
         public bool IsEmailVerified { get; set; } = false;
 

@@ -7,7 +7,7 @@ namespace ExaminationSystem.Entities
     /// <summary>
     /// Tracks which students are enrolled in which diploma programs
     /// </summary>
-    public class StudentDiplomaEnrollment : AuditableEntity
+    public class StudentDiplomaEnrollment : Entity
     {
         [Required]
         [ForeignKey(nameof(Student))]

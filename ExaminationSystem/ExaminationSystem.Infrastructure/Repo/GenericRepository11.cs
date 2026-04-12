@@ -18,9 +18,6 @@ namespace ExaminationSystem.Infrastructure.Repo
         {
             this.context = context;
         }
-        public GenericRepository11()
-        {
-        }
 
 
         public async Task<bool> Add(T entity)

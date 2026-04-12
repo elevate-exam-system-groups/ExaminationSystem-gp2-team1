@@ -20,7 +20,7 @@ namespace ExaminationSystem.Entities
 
         [Required]
         [Range(0, 100)]
-        public int PassScore { get; set; } = 60;
+        public decimal PassScore { get; set; } = 60;
 
         public int? MaxAttempts { get; set; }
 
