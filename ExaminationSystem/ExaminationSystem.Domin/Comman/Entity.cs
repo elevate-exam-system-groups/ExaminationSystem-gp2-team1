@@ -7,7 +7,7 @@ namespace ExaminationSystem.Domin.Comman;
 
 public abstract class Entity
 {
-    public Guid Id { get; }
+    public Guid Id { get; set; }
 
     protected Entity()
     { }

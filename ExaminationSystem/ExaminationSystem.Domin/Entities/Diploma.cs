@@ -17,11 +17,10 @@ namespace ExaminationSystem.Entities
         /// Status: "draft" or "published"
         /// </summary>
         [Required]
-        [MaxLength(20)]
-        public string Status { get; set; } = "draft";
+        public bool IsPublished { get; set; } = false;
 
         // Navigation properties
         public virtual ICollection<Quiz> Quizzes { get; set; } = new List<Quiz>();
-        public virtual ICollection<StudentDiplomaEnrollment> Enrollments { get; set; } = new List<StudentDiplomaEnrollment>();
+        public virtual ICollection<StudentDiplomaEnrollment> Enrollments { get; set; } = new HashSet<StudentDiplomaEnrollment>();
     }
 }

@@ -16,6 +16,6 @@ namespace ExaminationSystem.Entities
         public string? Description { get; set; }
 
         // Navigation property
-        public virtual ICollection<User> Users { get; set; } = new List<User>();
+        public virtual ICollection<User> Users { get; set; } = new HashSet<User>();
     }
 }

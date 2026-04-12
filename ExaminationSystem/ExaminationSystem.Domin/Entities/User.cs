@@ -46,10 +46,10 @@ namespace ExaminationSystem.Entities
 
         // Navigation properties
         public virtual UserRole Role { get; set; } = null!;
-        public virtual ICollection<OtpRecord> OtpRecords { get; set; } = new List<OtpRecord>();
-        public virtual ICollection<PasswordResetToken> PasswordResetTokens { get; set; } = new List<PasswordResetToken>();
-        public virtual ICollection<RefreshToken> RefreshTokens { get; set; } = new List<RefreshToken>();
-        public virtual ICollection<QuizAttempt> QuizAttempts { get; set; } = new List<QuizAttempt>();
-        public virtual ICollection<StudentDiplomaEnrollment> DiplomaEnrollments { get; set; } = new List<StudentDiplomaEnrollment>();
+        public virtual ICollection<OtpRecord> OtpRecords { get; set; } = new HashSet<OtpRecord>();
+        public virtual ICollection<PasswordResetToken> PasswordResetTokens { get; set; } = new HashSet<PasswordResetToken>();
+        public virtual ICollection<RefreshToken> RefreshTokens { get; set; } = new HashSet<RefreshToken>();
+        public virtual ICollection<QuizAttempt> QuizAttempts { get; set; } = new HashSet<QuizAttempt>();
+        public virtual ICollection<StudentDiplomaEnrollment> DiplomaEnrollments { get; set; } = new HashSet<StudentDiplomaEnrollment>();
     }
 }

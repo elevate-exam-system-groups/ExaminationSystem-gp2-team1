@@ -50,6 +50,6 @@ namespace ExaminationSystem.Entities
         // Navigation properties
         public virtual User Student { get; set; } = null!;
         public virtual Quiz Quiz { get; set; } = null!;
-        public virtual ICollection<AttemptAnswer> Answers { get; set; } = new List<AttemptAnswer>();
+        public virtual ICollection<AttemptAnswer> Answers { get; set; } = new HashSet<AttemptAnswer>();
     }
 }

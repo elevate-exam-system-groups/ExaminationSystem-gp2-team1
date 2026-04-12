@@ -19,7 +19,7 @@ namespace ExaminationSystem.Infrastructure
             services.AddDbContext<AppDbContext>((optionsBuilder) =>
             {
                 optionsBuilder
-                .UseLazyLoadingProxies()
+                //.UseLazyLoadingProxies()
                 .UseSqlServer(configuration.GetConnectionString("IdentityContext"));
             });
             #endregion
