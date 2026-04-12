@@ -25,15 +25,14 @@ namespace ExaminationSystem.Entities
         public int? MaxAttempts { get; set; }
 
         [Required]
-        [MaxLength(20)]
-        public string Status { get; set; } = "draft";
+        public bool IsPublished { get; set; } = false;
 
         [MaxLength(1000)]
         public string? Instructions { get; set; }
 
         public virtual Diploma Diploma { get; set; } = null!;
-        public virtual ICollection<Question> Questions { get; set; } = new List<Question>();
-        public virtual ICollection<QuizAttempt> Attempts { get; set; } = new List<QuizAttempt>();
+        public virtual ICollection<Question> Questions { get; set; } = new HashSet<Question>();
+        public virtual ICollection<QuizAttempt> Attempts { get; set; } = new HashSet<QuizAttempt>();
     }
 
 

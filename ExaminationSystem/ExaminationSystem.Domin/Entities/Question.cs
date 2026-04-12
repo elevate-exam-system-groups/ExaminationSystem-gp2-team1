@@ -21,7 +21,7 @@ namespace ExaminationSystem.Entities
         public string? Explanation { get; set; }
 
         public virtual Quiz Quiz { get; set; } = null!;
-        public virtual ICollection<QuestionOption> Options { get; set; } = new List<QuestionOption>();
-        public virtual ICollection<AttemptAnswer> Answers { get; set; } = new List<AttemptAnswer>();
+        public virtual ICollection<QuestionOption> Options { get; set; } = new HashSet<QuestionOption>();
+        public virtual ICollection<AttemptAnswer> Answers { get; set; } = new HashSet<AttemptAnswer>();
     }
 }
