@@ -2,6 +2,7 @@
 using ExaminationSystem.Domin.Contracts;
 using ExaminationSystem.Infrastructure._Data.Context;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -20,10 +21,23 @@ namespace ExaminationSystem.Infrastructure.Repo
             _dbSet = _context.Set<T>();
         }
         public IQueryable<T> GetAll() => _dbSet.Where(x => !x.IsDeleted).AsNoTracking();
+        public async Task<T?> GetByIdAsync(Guid id) => await _dbSet.FirstOrDefaultAsync(x => x.Id == id && !x.IsDeleted);
 
-        public async Task<T?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default) => await _dbSet.FirstOrDefaultAsync(x => x.Id == id && !x.IsDeleted, cancellationToken);
+        public IQueryable<T> GetbyId(Guid Id)
+        {
+            var query = _dbSet.AsQueryable();
 
-        public Task<bool> AnyAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken = default) => _dbSet.Where(x => !x.IsDeleted).AnyAsync(predicate, cancellationToken);
+            query = query.Where(x => !x.IsDeleted && x.Id == Id);
+
+            return query;
+        }
+
+        public Task<bool> IsExist(Expression<Func<T, bool>> predicate) => _dbSet.Where(x => !x.IsDeleted).AnyAsync(predicate);
+
+        public IQueryable<T> Find(Expression<Func<T, bool>> creiteria)
+        {
+            return _dbSet.Where(m => !m.IsDeleted).Where(creiteria);
+        }
 
         public void Add(T entity)
         {
@@ -35,29 +49,54 @@ namespace ExaminationSystem.Infrastructure.Repo
             _dbSet.AddRange(entities);
         }
 
-        public void Update(T entity)
-        {
-            _dbSet.Update(entity);
+       public async Task<bool> Update(T entity){
+         var entry = _dbSet.Entry(entity);
+            if (entry.State == EntityState.Detached)
+            {
+                _dbSet.Attach(entity);
+            }
+            entry.State = EntityState.Modified;
+            return true;
         }
 
-        public void SoftDelete(Guid id)
+        public async Task<bool> UpdateIncludeAsync(T entity, params Expression<Func<T, Object>>[] properties)
         {
-            var entity = _dbSet.Find(id);
-            if (entity is null)
-                return;
-            entity!.IsDeleted = true;
-            entity.UpdatedAt = DateTime.UtcNow;
+           var local = _dbSet.Local.FirstOrDefault(e => e.Id ==  entity.Id);
+            EntityEntry<T> entityEntry;
+            if (local == null)
+            {
+                _dbSet.Attach(entity);
+                entityEntry = _context.Entry(entity);
+            }
+            else
+            {
+                entityEntry = _context.Entry(local);
+                entityEntry.CurrentValues.SetValues(entity);
+            }
+            foreach (var property in properties)
+            {
+            entityEntry.Property(property).IsModified = true;
+            } return true;
+        }
+        public async Task<bool> SoftDelete(T entity)
+        {
+           entity.IsDeleted = true;
+           entity.DeletedAt = DateTime.UtcNow;
+           var isDeleted = await UpdateIncludeAsync(entity, e => e.IsDeleted, e => e.DeletedAt!);
+           return isDeleted;
         }
 
-        public void SoftDeleteRange(IEnumerable<Guid> ids)
+        public async Task<bool> SoftDeleteRange(IEnumerable<T> entities)
         {
-            var entities = _dbSet.Where(e => ids.Contains(e.Id)).ToList();
             var currentTime = DateTime.UtcNow;
+            var isDeleted = false;
             foreach (var entity in entities)
             {
                 entity.IsDeleted = true;
-                entity.UpdatedAt = currentTime;
+                entity.DeletedAt = currentTime;
+                isDeleted = await UpdateIncludeAsync(entity, e => e.IsDeleted, e => e.DeletedAt!);
             }
+            return isDeleted;
         }
 
     }

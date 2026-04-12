@@ -7,13 +7,16 @@ namespace ExaminationSystem.Domin.Contracts
         where T : AuditableEntity
     {
         IQueryable<T> GetAll();
-        Task<T?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default);
-        Task<bool> AnyAsync(Expression<Func<T, bool>> predicate, CancellationToken cancellationToken = default);
+        Task<T?> GetByIdAsync(Guid id);
+        IQueryable<T> GetbyId(Guid Id);
+        Task<bool> IsExist(Expression<Func<T, bool>> predicate);
+        IQueryable<T> Find(Expression<Func<T, bool>> creiteria);
         void Add(T entity);
         void AddRange(IEnumerable<T> entities);
-        void Update(T entity);
-        void SoftDelete(Guid id);
-        void SoftDeleteRange(IEnumerable<Guid> ids);
+        Task<bool> Update(T entity);
+        Task<bool> UpdateIncludeAsync(T entity, params Expression<Func<T, Object>>[] properties);
+        Task<bool> SoftDelete(T entity);
+        Task<bool> SoftDeleteRange(IEnumerable<T> entities);
     }
 
 }
