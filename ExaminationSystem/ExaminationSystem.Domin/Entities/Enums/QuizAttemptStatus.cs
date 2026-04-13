@@ -6,8 +6,8 @@ namespace ExaminationSystem.Domin.Entities.Enums
 {
     public enum QuizAttemptStatus
     {
-        in_progress = 0,
-        timed_out = 1,
+        inProgress = 0,
+        timedOut = 1,
         submitted = 2
     }
 }

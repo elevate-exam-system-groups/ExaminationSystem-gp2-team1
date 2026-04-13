@@ -8,7 +8,6 @@ namespace ExaminationSystem.Domin.Contracts
     {
         IQueryable<T> GetAll();
         Task<T?> GetByIdAsync(Guid id);
-        IQueryable<T> GetbyId(Guid Id);
         Task<bool> IsExist(Expression<Func<T, bool>> predicate);
         IQueryable<T> Find(Expression<Func<T, bool>> creiteria);
         void Add(T entity);

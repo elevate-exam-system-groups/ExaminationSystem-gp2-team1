@@ -15,11 +15,8 @@ namespace ExaminationSystem.Entities
         [ForeignKey(nameof(Quiz))]
         public Guid QuizId { get; set; }
 
-        /// <summary>
-        /// Status: "in_progress", "submitted", "timed_out"
-        /// </summary>
         [Required]
-        public QuizAttemptStatus Status { get; set; } = QuizAttemptStatus.in_progress;
+        public QuizAttemptStatus Status { get; set; } = QuizAttemptStatus.inProgress;
 
         public DateTime StartedAt { get; set; } = DateTime.UtcNow;
 
@@ -27,24 +24,13 @@ namespace ExaminationSystem.Entities
 
         public DateTime? DeadlineAt { get; set; }
 
-        /// <summary>
-        /// Final score (percentage)
-        /// </summary>
         public decimal? Score { get; set; }
 
-        /// <summary>
-        /// Whether the student passed (score >= quiz.PassScore)
-        /// </summary>
+        
         public bool? IsPassed { get; set; }
 
-        /// <summary>
-        /// Number of correct answers
-        /// </summary>
         public int? CorrectAnswerCount { get; set; }
-
-        /// <summary>
-        /// Total number of questions in this attempt
-        /// </summary>
+       
         public int TotalQuestions { get; set; }
 
         // Navigation properties

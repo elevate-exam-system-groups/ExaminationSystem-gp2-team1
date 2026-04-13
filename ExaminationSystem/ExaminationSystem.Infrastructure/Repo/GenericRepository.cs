@@ -22,35 +22,22 @@ namespace ExaminationSystem.Infrastructure.Repo
         }
         public IQueryable<T> GetAll() => _dbSet.Where(x => !x.IsDeleted).AsNoTracking();
         public async Task<T?> GetByIdAsync(Guid id) => await _dbSet.FirstOrDefaultAsync(x => x.Id == id && !x.IsDeleted);
-
-        public IQueryable<T> GetbyId(Guid Id)
-        {
-            var query = _dbSet.AsQueryable();
-
-            query = query.Where(x => !x.IsDeleted && x.Id == Id);
-
-            return query;
-        }
-
         public Task<bool> IsExist(Expression<Func<T, bool>> predicate) => _dbSet.Where(x => !x.IsDeleted).AnyAsync(predicate);
-
         public IQueryable<T> Find(Expression<Func<T, bool>> creiteria)
         {
             return _dbSet.Where(m => !m.IsDeleted).Where(creiteria);
         }
-
         public void Add(T entity)
         {
-            _dbSet.Add(entity);
+           _dbSet.AddAsync(entity);
+           
         }
-
         public void AddRange(IEnumerable<T> entities)
         {
             _dbSet.AddRange(entities);
         }
-
-       public async Task<bool> Update(T entity){
-         var entry = _dbSet.Entry(entity);
+        public async Task<bool> Update(T entity){
+            var entry = _dbSet.Entry(entity);
             if (entry.State == EntityState.Detached)
             {
                 _dbSet.Attach(entity);
@@ -58,7 +45,6 @@ namespace ExaminationSystem.Infrastructure.Repo
             entry.State = EntityState.Modified;
             return true;
         }
-
         public async Task<bool> UpdateIncludeAsync(T entity, params Expression<Func<T, Object>>[] properties)
         {
            var local = _dbSet.Local.FirstOrDefault(e => e.Id ==  entity.Id);
@@ -85,7 +71,6 @@ namespace ExaminationSystem.Infrastructure.Repo
            var isDeleted = await UpdateIncludeAsync(entity, e => e.IsDeleted, e => e.DeletedAt!);
            return isDeleted;
         }
-
         public async Task<bool> SoftDeleteRange(IEnumerable<T> entities)
         {
             var currentTime = DateTime.UtcNow;
