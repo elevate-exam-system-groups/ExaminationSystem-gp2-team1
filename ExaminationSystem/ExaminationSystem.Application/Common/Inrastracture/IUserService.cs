@@ -4,4 +4,5 @@ public interface IUserService
 {
     Guid? GetUserId();
     Task<Guid> GetRoleIdByNameAsync(string roleName);
+    public string GetUserRole();
 }

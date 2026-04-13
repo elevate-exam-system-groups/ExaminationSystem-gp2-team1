@@ -34,5 +34,10 @@ namespace ExaminationSystem.Infrastructure.Identity
 
             return currentUserId;
         }
+        public string GetUserRole()
+        {
+            var currentUserIdString = httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.Role)?.Value;
+            return currentUserIdString;
+        }
     }
 }
