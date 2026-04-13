@@ -6,6 +6,8 @@ namespace ExaminationSystem.Domin.Comman.Result
 {
     public enum ErrorCode
     {
-        ValidationError
+        ValidationError,
+        EmailIsAlreadyUsed,
+        RegistrationFailed
     }
 }
