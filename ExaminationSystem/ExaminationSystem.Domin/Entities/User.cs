@@ -28,7 +28,7 @@ namespace ExaminationSystem.Entities
         /// </summary>
         [Required]
         [ForeignKey(nameof(Role))]
-        public Guid RoleId { get; set; }
+        public Guid RoleId { get; set; } 
 
         /// <summary>
         /// Account status: "pending", "active", or "locked"
