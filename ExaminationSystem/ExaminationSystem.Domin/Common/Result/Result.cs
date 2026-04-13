@@ -7,7 +7,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ExaminationSystem.Domin.Comman.Result
 {
-    public static class Result 
+    public class Result 
     {
         public static Success Success => default;
         public static Created Created => default;
@@ -21,12 +21,15 @@ namespace ExaminationSystem.Domin.Comman.Result
         private readonly List<Error>? _errors = null;
 
         public bool IsSuccess { get; }
-
+        
          string Message { get; set; }
 
-      
-     
-        private Result(TValue value)
+        public Result()
+        {
+            
+        }
+
+        public Result(TValue value)
         {
             if (value is null)
             {
@@ -38,13 +41,13 @@ namespace ExaminationSystem.Domin.Comman.Result
             IsSuccess = true;
         }
 
-       
-        private Result(Error error)
+
+        public Result(Error error)
         {
             _errors = [error];
         }
 
-        private Result(List<Error> errors)
+        public Result(List<Error> errors)
         {
             if (errors is null || errors.Count == 0)
             {
@@ -66,14 +69,7 @@ namespace ExaminationSystem.Domin.Comman.Result
         public TNextValue Match<TNextValue>(Func<TValue, TNextValue> onValue, Func<List<Error>, TNextValue> onError)
             => IsSuccess ? onValue(Value!) : onError(Errors);
 
-        public static implicit operator Result<TValue>(TValue value)
-            => new(value);
-
-        public static implicit operator Result<TValue>(Error error)
-            => new(error);
-
-        public static implicit operator Result<TValue>(List<Error> errors)
-            => new(errors);
+      
 
     }
     public readonly record struct Success;
