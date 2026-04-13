@@ -6,8 +6,18 @@ namespace ExaminationSystem.Domin.Comman.Result
 {
     public enum ErrorCode
     {
+        NoError = 0,
+        /// for Start Quiz 
+        ///   Limit reached: 403 
+        ///   Student already has an in-progress attempt for this quiz
+        LimitReached = 403,
+        NotFound = 404,
+        ExistingAttempt = 409,
+
         ValidationError,
         EmailIsAlreadyUsed,
-        RegistrationFailed
+        RegistrationFailed,
+
+        
     }
 }
