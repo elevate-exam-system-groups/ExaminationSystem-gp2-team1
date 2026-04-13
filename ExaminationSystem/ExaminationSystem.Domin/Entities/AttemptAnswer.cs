@@ -17,7 +17,7 @@ namespace ExaminationSystem.Entities
         [ForeignKey(nameof(SelectedOption))]
         public Guid? SelectedOptionId { get; set; }
 
-        public DateTime AnsweredAt { get; set; } = DateTime.UtcNow;
+        public DateTime AnsweredAt { get; set; } 
 
         public bool IsCorrect { get; set; } = false;
 

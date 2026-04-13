@@ -17,7 +17,7 @@ namespace ExaminationSystem.Entities
         [ForeignKey(nameof(Diploma))]
         public Guid DiplomaId { get; set; }
 
-        public DateTime EnrolledAt { get; set; } = DateTime.UtcNow;
+        public DateTime EnrolledAt { get; set; }
 
         // Navigation properties
         public virtual User Student { get; set; } = null!;

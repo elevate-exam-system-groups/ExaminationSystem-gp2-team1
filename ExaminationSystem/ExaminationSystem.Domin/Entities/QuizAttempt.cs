@@ -18,7 +18,7 @@ namespace ExaminationSystem.Entities
         [Required]
         public QuizAttemptStatus Status { get; set; } = QuizAttemptStatus.inProgress;
 
-        public DateTime StartedAt { get; set; } = DateTime.UtcNow;
+        public DateTime StartedAt { get; set; } 
 
         public DateTime? SubmittedAt { get; set; }
 

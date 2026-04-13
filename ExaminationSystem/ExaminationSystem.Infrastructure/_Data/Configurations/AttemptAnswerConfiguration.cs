@@ -33,6 +33,12 @@ namespace ExaminationSystem.Infrastructure._Data.Configurations
                 .HasForeignKey(aa => aa.SelectedOptionId)
                 .OnDelete(DeleteBehavior.SetNull)
                 .IsRequired(false);
+
+            builder.HasOne(aa => aa.Question)
+               .WithMany()
+               .HasForeignKey(aa => aa.QuestionId)
+               .OnDelete(DeleteBehavior.NoAction)
+               .IsRequired(true);
         }
     }
 }

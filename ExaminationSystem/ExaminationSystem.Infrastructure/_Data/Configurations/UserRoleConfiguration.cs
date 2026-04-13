@@ -31,14 +31,14 @@ namespace ExaminationSystem.Infrastructure._Data.Configurations
                     Id = new Guid("10000000-0000-0000-0000-000000000001"),
                     Name = "Student",
                     Description = "Student role - can take quizzes and view their progress",
-                    CreatedAt = DateTime.UtcNow
+                   
                 },
                 new UserRole 
                 { 
                     Id = new Guid("10000000-0000-0000-0000-000000000002"),
                     Name = "Admin",
                     Description = "Administrator role - full system access",
-                    CreatedAt = DateTime.UtcNow
+                   
                 }
             );
         }

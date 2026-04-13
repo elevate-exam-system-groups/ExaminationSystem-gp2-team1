@@ -12,10 +12,7 @@ namespace ExaminationSystem.Infrastructure._Data.Configurations
 
             builder.HasKey(qa => qa.Id);
 
-            builder.Property(qa => qa.Status)
-                .IsRequired()
-                .HasMaxLength(20)
-                .HasDefaultValue("in_progress");
+     
 
             builder.Property(qa => qa.Score)
                 .HasPrecision(5, 2);
@@ -32,8 +29,7 @@ namespace ExaminationSystem.Infrastructure._Data.Configurations
             builder.HasIndex(qa => qa.QuizId)
                 .HasDatabaseName("IX_QuizAttempts_QuizId");
 
-            builder.HasIndex(qa => qa.Status)
-                .HasDatabaseName("IX_QuizAttempts_Status");
+    
 
             builder.HasIndex(qa => new { qa.StudentId, qa.QuizId })
                 .HasDatabaseName("IX_QuizAttempts_StudentId_QuizId");

@@ -38,7 +38,7 @@ namespace ExaminationSystem.Infrastructure._Data.Configurations
             builder.HasMany(q => q.Answers)
                 .WithOne(aa => aa.Question)
                 .HasForeignKey(aa => aa.QuestionId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

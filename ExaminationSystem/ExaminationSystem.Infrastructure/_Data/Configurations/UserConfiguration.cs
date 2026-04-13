@@ -27,10 +27,6 @@ namespace ExaminationSystem.Infrastructure._Data.Configurations
             builder.Property(u => u.PasswordHash)
                 .IsRequired();
 
-            builder.Property(u => u.Status)
-                .IsRequired()
-                .HasMaxLength(20)
-                .HasDefaultValue("pending");
 
             builder.Property(u => u.IsEmailVerified)
                 .HasDefaultValue(false);
