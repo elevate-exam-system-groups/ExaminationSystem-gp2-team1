@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ExaminationSystem.Domin.Common.Result;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
@@ -6,20 +7,20 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ExaminationSystem.Domin.Comman.Result
 {
-    public static class Result
+    public static class Result 
     {
         public static Success Success => default;
         public static Created Created => default;
         public static Deleted Deleted => default;
         public static Updated Updated => default;
     }
-    public class Result<TValue> where TValue : AuditableEntity
+    public class Result<TValue> : IResult<TValue> where TValue : AuditableEntity 
     {
         private readonly TValue? _value = default;
 
         private readonly List<Error>? _errors = null;
 
-        public bool IsSuccess { get; set; }
+        public bool IsSuccess { get; }
 
          string Message { get; set; }
 

@@ -7,11 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ExaminationSystem.Domin\ExaminationSystem.Domin.csproj" />
+    <PackageReference Include="FluentValidation" Version="10.4.0" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="10.3.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Feature\User\" />
+    <ProjectReference Include="..\ExaminationSystem.Domin\ExaminationSystem.Domin.csproj" />
   </ItemGroup>
 
 </Project>
