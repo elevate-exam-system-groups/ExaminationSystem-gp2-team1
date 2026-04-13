@@ -2,41 +2,81 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ExaminationSystem.Domin.Comman.Result
 {
-    public  class Result<T>  where T : AuditableEntity
+    public static class Result
     {
-        public T? Data { get; set; }
+        public static Success Success => default;
+        public static Created Created => default;
+        public static Deleted Deleted => default;
+        public static Updated Updated => default;
+    }
+    public class Result<TValue> where TValue : AuditableEntity
+    {
+        private readonly TValue? _value = default;
+
+        private readonly List<Error>? _errors = null;
 
         public bool IsSuccess { get; set; }
 
-        public string Message { get; set; }
+         string Message { get; set; }
 
-        public ErrorCode? ErrorCode { get; set; }
-        protected Result(T? data, bool isSuccess, string message, ErrorCode? errorCode)
+      
+     
+        private Result(TValue value)
         {
-            Data = data;
-            IsSuccess = isSuccess;
-            Message = message;
-            ErrorCode = errorCode;
-        }
-        public static Result<T> Success(T data, string? message = null)
-        {
-            return new Result<T>(data, true, message ?? "Success", null);
+            if (value is null)
+            {
+                throw new ArgumentNullException(nameof(value));
+            }
+
+            _value = value;
+
+            IsSuccess = true;
         }
 
-        public static Result<T> Fail(ErrorCode? errorCode, string message)
+       
+        private Result(Error error)
         {
-            return new Result<T>(default, false, message, errorCode);
+            _errors = [error];
         }
-       /* public static Result<T> ValidationFail(ValidationResult validationResult)
-        {
-            var errorMessage = string.Join("; ",
-                validationResult.Errors.Select(e => $"{e.PropertyName}: {e.ErrorMessage}"));
 
-            return Fail(
-                 Domain.Enums.ErrorCode.ValidationError, $"Validation Failed \n {errorMessage}");
-        }*/
+        private Result(List<Error> errors)
+        {
+            if (errors is null || errors.Count == 0)
+            {
+                throw new ArgumentException("Cannot create an ErrorOr<TValue> from an empty collection of errors. Provide at least one error.", nameof(errors));
+            }
+
+            _errors = errors;
+
+            IsSuccess = false;
+        }
+        public bool IsError => !IsSuccess;
+
+        public List<Error> Errors => IsError ? _errors! : [];
+
+        public TValue Value => IsSuccess ? _value! : default!;
+
+        public Error TopError => (_errors?.Count > 0) ? _errors[0] : default;
+
+        public TNextValue Match<TNextValue>(Func<TValue, TNextValue> onValue, Func<List<Error>, TNextValue> onError)
+            => IsSuccess ? onValue(Value!) : onError(Errors);
+
+        public static implicit operator Result<TValue>(TValue value)
+            => new(value);
+
+        public static implicit operator Result<TValue>(Error error)
+            => new(error);
+
+        public static implicit operator Result<TValue>(List<Error> errors)
+            => new(errors);
+
     }
+    public readonly record struct Success;
+    public readonly record struct Created;
+    public readonly record struct Deleted;
+    public readonly record struct Updated;
 }

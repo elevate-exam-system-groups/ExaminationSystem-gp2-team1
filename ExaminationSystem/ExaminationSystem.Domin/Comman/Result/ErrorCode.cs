@@ -1,4 +1,8 @@
-﻿namespace ExaminationSystem.Domin.Comman.Result
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace ExaminationSystem.Domin.Comman.Result
 {
     public enum ErrorCode
     {

@@ -10,4 +10,8 @@
     <ProjectReference Include="..\ExaminationSystem.Domin\ExaminationSystem.Domin.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Feature\User\" />
+  </ItemGroup>
+
 </Project>
