@@ -1,4 +1,5 @@
-﻿using ExaminationSystem.Infrastructure._Data.Context;
+﻿using ExaminationSystem.Application.Common.Models;
+using ExaminationSystem.Infrastructure._Data.Context;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -8,6 +9,7 @@ namespace ExaminationSystem.API
 {
     public static class DependencyInjection
     {
+      
         public static IServiceCollection AddPresentation(this IServiceCollection services, IConfiguration configuration)
         {
             string connectionString = configuration.GetConnectionString("DefaultConnection") ??
@@ -43,7 +45,7 @@ namespace ExaminationSystem.API
                 };
 
             });
-
+            return services;
         }
 
     }

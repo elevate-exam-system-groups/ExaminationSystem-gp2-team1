@@ -17,9 +17,6 @@ namespace ExaminationSystem.Domin.Comman.Result
         NotFound = 404,
         ExistingAttempt = 409,
 
-        ValidationError,
-        EmailIsAlreadyUsed,
-        RegistrationFailed,
 
         
     }
