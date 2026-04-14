@@ -10,6 +10,9 @@
     <PackageReference Include="BCrypt.Net-Next" Version="4.1.0" />
     <PackageReference Include="FluentValidation" Version="10.4.0" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="10.3.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.5" />
+	<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.15.0" />
+
   </ItemGroup>
 
   <ItemGroup>
