@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ExaminationSystem.Domin.Comman.Result
+namespace ExaminationSystem.Domin.Common.Result
 {
     public enum ErrorCode
     {

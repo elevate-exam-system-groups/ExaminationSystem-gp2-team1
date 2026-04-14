@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace ExaminationSystem.Domin.Comman.Result
+namespace ExaminationSystem.Domin.Common.Result
 {
     public class Result 
     {
@@ -14,7 +14,7 @@ namespace ExaminationSystem.Domin.Comman.Result
         public static Deleted Deleted => default;
         public static Updated Updated => default;
     }
-    public class Result<TValue> : IResult<TValue> where TValue : AuditableEntity 
+    public class Result<TValue> : IResult<TValue> 
     {
         private readonly TValue? _value = default;
 

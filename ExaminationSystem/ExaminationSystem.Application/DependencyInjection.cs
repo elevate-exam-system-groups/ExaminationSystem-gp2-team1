@@ -1,5 +1,6 @@
 ﻿using Application.common.Models;
 using ExaminationSystem.Application.Comman.Behaviours;
+using ExaminationSystem.Application.Feature.User.Mapping;
 using FluentValidation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,6 +24,7 @@ namespace ExaminationSystem.Application
                 cfg.AddOpenBehavior(typeof(ValidationBehavior<,>));
                
             });
+            services.AddAutoMapper(typeof(UserMappingProfile).Assembly);
         }
     }
 }

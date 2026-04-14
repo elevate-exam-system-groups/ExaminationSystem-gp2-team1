@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using ExaminationSystem.Domin.Comman.Result;
+using ExaminationSystem.Domin.Common.Result;
 
 namespace ExaminationSystem.Domin.Common.Result
 {
