@@ -44,7 +44,7 @@ namespace ExaminationSystem.Application.Feature.User.Events
                 _otpRepo.Add(otpRecord);
                 var result = await _unitOfWork.SaveChangesAsync();
                 if (result <= 0)
-                {
+        {
                     _logger.LogError("Failed to save OTP record for User: {UserId}", notification.UserId);
                     return;
                 }   
@@ -65,7 +65,8 @@ namespace ExaminationSystem.Application.Feature.User.Events
                 cancellationToken);
 
             _logger.LogInformation("OTP email sent successfully to: {Email}", notification.Email);
-          
+
+            throw new NotImplementedException();
         }
     }
 }
