@@ -6,6 +6,9 @@ namespace ExaminationSystem.Domin.Comman.Result
 {
     public enum ErrorCode
     {
+        ValidationError,
+        EmailIsAlreadyUsed,
+        RegistrationFailed
         NoError = 0,
         /// for Start Quiz 
         ///   Limit reached: 403 

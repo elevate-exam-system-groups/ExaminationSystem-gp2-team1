@@ -23,11 +23,14 @@ namespace ExaminationSystem.Application.Feature.User.Command.UserRegistration
         public async Task<IResult> Handle(UserRegistrationCommand request, CancellationToken cancellationToken)
         {
             var roleId =  await _userService.GetRoleIdByNameAsync("Student");
+
             var existingUser = await _userRepository.IsExist(u => u.Email == request.Email);
+
             if (existingUser)
             {        
               return new Result<Entities.User>(  new Error(ErrorCode.EmailIsAlreadyUsed , "A user with this email already exists."));                           
             }
+
             var user = new Entities.User
             {
                 FirstName = request.FirstName,
@@ -38,7 +41,9 @@ namespace ExaminationSystem.Application.Feature.User.Command.UserRegistration
             };
             
             _userRepository.Add(user);
+
             var result =  await unitOfWork.SaveChangesAsync();
+
             if (result > 0)
             {
                 return new Result<Entities.User>(user);
