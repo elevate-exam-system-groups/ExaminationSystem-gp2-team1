@@ -11,6 +11,8 @@ builder.Services.AddOpenApi();
 builder.Services.AddPresentation(builder.Configuration)
                 .AddApplication()
                 .AddInfrastructure(builder.Configuration);
+builder.Services.AddScoped<IDiplomaQuizService, DiplomaQuizService>();
+builder.Services.AddAutoMapper(typeof(DiplomaQuizMappingProfile));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -24,5 +26,5 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.Run();
