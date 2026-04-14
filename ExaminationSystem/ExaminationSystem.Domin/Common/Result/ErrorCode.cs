@@ -8,7 +8,7 @@ namespace ExaminationSystem.Domin.Comman.Result
     {
         ValidationError,
         EmailIsAlreadyUsed,
-        RegistrationFailed
+        RegistrationFailed,
         NoError = 0,
         /// for Start Quiz 
         ///   Limit reached: 403 
