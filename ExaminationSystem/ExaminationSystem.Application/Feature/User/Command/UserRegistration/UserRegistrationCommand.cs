@@ -1,4 +1,5 @@
-﻿using ExaminationSystem.Domin.Common.Result;
+﻿using ExaminationSystem.Application.Feature.User.Dto;
+using ExaminationSystem.Domin.Common.Result;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,6 @@ namespace ExaminationSystem.Application.Feature.User.Commond.UserRegistration
         string LastName,
         string Email,
         string Password
-    ):IRequest<IResult>;
+    ):IRequest<Result<UserResponseDto>>;
     
 }

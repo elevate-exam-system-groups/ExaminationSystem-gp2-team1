@@ -10,17 +10,21 @@ using System.Text;
 using ExaminationSystem.Domin.Entities;
 using BCrypt.Net;
 using ExaminationSystem.Domin.Common.Result;
-namespace ExaminationSystem.Application.Feature.User.Commond.UserRegistration
+using AutoMapper;
+using ExaminationSystem.Application.Feature.User.Dto;
+namespace ExaminationSystem.Application.Feature.User.Command.UserRegistration
 {
-    public class UserRegistrationHandler(IUserService userService ,
+    public class UserRegistrationCommandHandler(IUserService userService ,
         IGenericRepository<Entities.User> userRepository ,
-        IUnitOfWork unitOfWork)
-        : IRequestHandler<UserRegistrationCommond, IResult>
+        IUnitOfWork unitOfWork,
+        IMapper mapper)
+        : IRequestHandler<UserRegistrationCommand, Result<UserResponseDto>>
     {
         private readonly IUserService _userService;
         private readonly IGenericRepository<Entities.User> _userRepository;
         private readonly IUnitOfWork unitOfWork;
-        public async Task<IResult> Handle(UserRegistrationCommond request, CancellationToken cancellationToken)
+        private readonly IMapper _mapper;
+        public async Task<Result<UserResponseDto>> Handle(UserRegistrationCommand request, CancellationToken cancellationToken)
         {
             var roleId =  await _userService.GetRoleIdByNameAsync("Student");
 
@@ -28,7 +32,7 @@ namespace ExaminationSystem.Application.Feature.User.Commond.UserRegistration
 
             if (existingUser)
             {        
-              return new Result<Entities.User>(  new Error(ErrorCode.EmailIsAlreadyUsed , "A user with this email already exists."));                           
+              return new Result<UserResponseDto>(  new Error(ErrorCode.EmailIsAlreadyUsed , "A user with this email already exists."));                           
             }
 
             var user = new Entities.User
@@ -46,14 +50,17 @@ namespace ExaminationSystem.Application.Feature.User.Commond.UserRegistration
 
             if (result > 0)
             {
-                return new Result<Entities.User>(user);
+               var userDto = _mapper.Map<UserResponseDto>(user);
+                return new Result<UserResponseDto>(userDto);
             }
             else
             {
-                return new Result<Entities.User>(new Error(ErrorCode.RegistrationFailed, "User registration failed."));
+                return new Result<UserResponseDto>(new Error(ErrorCode.RegistrationFailed, "User registration failed."));
             }
 
             throw new NotImplementedException();
         }
+
+      
     }
 }
