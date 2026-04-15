@@ -1,4 +1,4 @@
-﻿namespace testexamination.Dtos
+﻿namespace ExaminationSystem.Application.Dtos
 {
     public class DiplomaQuizDto
     {

@@ -1,14 +1,11 @@
-﻿using Application.common.Models;
-using ExaminationSystem.Application.Comman.Behaviours;
-using FluentValidation;
-using Microsoft.Extensions.Configuration;
+﻿
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 
-namespace ExaminationSystem.Application
+namespace ExaminationSystem.Domin
 {
     public static class DependencyInjection
     {
