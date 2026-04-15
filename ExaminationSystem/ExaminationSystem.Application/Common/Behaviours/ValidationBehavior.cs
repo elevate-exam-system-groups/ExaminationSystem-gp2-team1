@@ -1,7 +1,7 @@
 using MediatR;
 using FluentValidation;
 using ExaminationSystem.Domin.Common.Result;
-namespace ExaminationSystem.Application.Comman.Behaviours;
+namespace ExaminationSystem.Application.Common.Behaviours;
 
 
 public class ValidationBehavior<TRequest, TResponse>(IValidator<TRequest>? validator = null)
