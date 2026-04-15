@@ -1,6 +1,5 @@
 using MediatR;
 using FluentValidation;
-using ExaminationSystem.Domin.Comman.Result;
 using ExaminationSystem.Domin.Common.Result;
 namespace ExaminationSystem.Application.Comman.Behaviours;
 

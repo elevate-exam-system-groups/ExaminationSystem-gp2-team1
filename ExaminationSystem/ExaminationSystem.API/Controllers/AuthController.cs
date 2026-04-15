@@ -3,7 +3,9 @@ using ExaminationSystem.Application.Feature.User.Command.AccountVerification;
 using ExaminationSystem.Application.Feature.User.Command.UserRegistration;
 using ExaminationSystem.Contracts.Requests.User;
 using ExaminationSystem.Domin.Common.Result;
+using ExaminationSystem.Entities;
 using MediatR;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExaminationSystem.API.Controllers
@@ -45,10 +47,11 @@ namespace ExaminationSystem.API.Controllers
 
         [HttpPost]
         [Route("/verify-otp/{Guid:id}")]
-        public async Task<IActionResult> AccountVerification([FromBody]int otp)
+        public async Task<IActionResult> AccountVerification([FromQuery]Guid id ,[FromBody]int otp)
         {
-            var command = new AccountVerificationCommand(otp);
+            var command = new AccountVerificationCommand(id,otp);
             var result = await _mediator.Send(otp);
+            return Ok();
         }
 
 
