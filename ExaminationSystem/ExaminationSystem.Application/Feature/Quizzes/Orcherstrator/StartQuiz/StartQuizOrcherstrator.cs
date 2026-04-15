@@ -7,5 +7,5 @@ using MediatR;
 
 namespace ExaminationSystem.Application.Feature.Quizzes.Command.StartQuiz;
 
-public record StartQuizCommand(Guid QuizId, Guid UserId) : IRequest<RequestResult<StartQuizResponse>>;
+public record StartQuizOrcherstrator(Guid QuizId, Guid UserId) : IRequest<RequestResult<StartQuizResponse>>;
 

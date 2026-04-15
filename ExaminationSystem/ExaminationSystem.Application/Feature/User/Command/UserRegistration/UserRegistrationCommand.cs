@@ -11,6 +11,6 @@ namespace ExaminationSystem.Application.Feature.User.Command.UserRegistration
         string LastName,
         string Email,
         string Password
-    ):IRequest<IResult>;
-    
+    ) : IRequest<IResult>;
+
 }

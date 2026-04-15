@@ -8,20 +8,20 @@ using ExaminationSystem.Entities;
 using Microsoft.EntityFrameworkCore;
 using MediatR;
 
-namespace ExaminationSystem.Application.Feature.Quizzes.Query
+namespace ExaminationSystem.Application.Feature.Quizzes.Query;
+
+public class GetInProgressAttemptQueryHandler(IGenericRepository<QuizAttempt> _Repo) 
+    : IRequestHandler<GetInProgressAttemptQuery, RequestResult<Guid?>>
 {
-    public class GetInProgressAttemptQueryHandler(IGenericRepository<QuizAttempt> _Repo) : IRequestHandler<GetInProgressAttemptQuery, RequestResult<Guid?>>
+    public async Task<RequestResult<Guid?>> Handle(GetInProgressAttemptQuery request, CancellationToken cancellationToken)
     {
-        public async Task<RequestResult<Guid?>> Handle(GetInProgressAttemptQuery request, CancellationToken cancellationToken)
-        {
-            var attempt = await _Repo.GetAll().Where(a =>
-                                    a.StudentId == request.UserId &&
-                                     a.QuizId == request.QuizId &&
-                                     a.Status == QuizAttemptStatus.inProgress).Select(a => a.Id)
-                                     .FirstOrDefaultAsync();
+        var attempt = await _Repo.GetAll().Where(a =>
+                                a.StudentId == request.UserId &&
+                                 a.QuizId == request.QuizId &&
+                                 a.Status == QuizAttemptStatus.inProgress).Select(a => a.Id)
+                                 .FirstOrDefaultAsync();
 
-            return RequestResult<Guid?>.Sucess(attempt);
+        return RequestResult<Guid?>.Sucess(attempt);
 
-        }
     }
 }

@@ -14,9 +14,9 @@ using MediatR;
 
 namespace ExaminationSystem.Application.Feature.Quizzes.Command.StartQuiz;
 
-public class StartQuizCommandHandler(IUnitOfWork _unitOfWork,IMediator _mediator) : IRequestHandler<StartQuizCommand, RequestResult<StartQuizResponse>>
+public class StartQuizOrcherstratorHandler(IUnitOfWork _unitOfWork,IMediator _mediator) : IRequestHandler<StartQuizOrcherstrator, RequestResult<StartQuizResponse>>
 {
-    public async Task<RequestResult<StartQuizResponse>> Handle(StartQuizCommand request, CancellationToken cancellationToken)
+    public async Task<RequestResult<StartQuizResponse>> Handle(StartQuizOrcherstrator request, CancellationToken cancellationToken)
     {
         // get time of starting the quiz
         var now = DateTime.UtcNow;
