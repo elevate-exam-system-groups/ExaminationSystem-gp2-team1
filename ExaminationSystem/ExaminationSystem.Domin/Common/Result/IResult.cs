@@ -1,4 +1,4 @@
-﻿using ExaminationSystem.Domin.Comman.Result;
+﻿using ExaminationSystem.Domin.Common.Result;
 using System;
 using System.Collections.Generic;
 using System.Text;

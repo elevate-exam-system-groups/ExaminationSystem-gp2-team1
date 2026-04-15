@@ -1,5 +1,5 @@
-﻿using ExaminationSystem.Application.Feature.Quizzes.Command.StartQuiz;
-using ExaminationSystem.Domin.Comman.Result;
+﻿using ExaminationSystem.Application.Feature.Quizzes.Commond.StartQuiz;
+using ExaminationSystem.Domin.Common.Result;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

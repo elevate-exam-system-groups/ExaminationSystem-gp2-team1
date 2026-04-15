@@ -5,7 +5,7 @@ using ExaminationSystem.Application.DTOs.QuizzesDTOs;
 using ExaminationSystem.Domin.Common.Result;
 using MediatR;
 
-namespace ExaminationSystem.Application.Feature.Quizzes.Command.StartQuiz;
+namespace ExaminationSystem.Application.Feature.Quizzes.Commond.StartQuiz;
 
-public record StartQuizCommand(Guid QuizId, Guid UserId) : IRequest<RequestResult<StartQuizResponse>>;
+public record StartQuizCommond(Guid QuizId, Guid UserId) : IRequest<RequestResult<StartQuizResponse>>;
 
