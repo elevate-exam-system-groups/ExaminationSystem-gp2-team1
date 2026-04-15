@@ -12,7 +12,12 @@ namespace ExaminationSystem.Domin.Comman.Result
         ///   Student already has an in-progress attempt for this quiz
         LimitReached = 403,
         NotFound = 404,
-        ExistingAttempt = 409,
+        ExistingAttempt = 405,
+
+        Forbidden = 406,
+        Conflict = 407,
+        Expired = 408,
+        Unprocessable = 409,
 
         ValidationError,
         EmailIsAlreadyUsed,

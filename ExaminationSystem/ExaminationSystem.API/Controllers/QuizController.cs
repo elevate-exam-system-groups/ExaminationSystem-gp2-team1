@@ -23,7 +23,7 @@ namespace ExaminationSystem.API.Controllers
             Guid userId = default; // Get the user ID from the authenticated user context (e.g., JWT token, session, etc.)
 
             var result = await _mediator.Send(
-                new StartQuizCommand(quizId, userId));
+                new StartQuizOrcherstrator(quizId, userId));
 
             if (!result.IsSucess)
             {
