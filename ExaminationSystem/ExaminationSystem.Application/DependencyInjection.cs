@@ -1,6 +1,6 @@
 ﻿using Application.common.Models;
-using ExaminationSystem.Application.Comman.Behaviours;
-using ExaminationSystem.Application.Feature.User.Mapping;
+using ExaminationSystem.Application.Common.Behaviours;
+using ExaminationSystem.Application.Common.Interfaces;
 using FluentValidation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,10 +13,11 @@ namespace ExaminationSystem.Application
 {
     public static class DependencyInjection
     {
-        public static void AddApplication(this IServiceCollection services , IConfiguration config)
+        public static IServiceCollection AddApplication(this IServiceCollection services , IConfiguration config)
         {
             services.Configure<SmtpSettings>(config.GetSection("EmailSettings"));
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+            //services.AddScoped<IDiplomaQuizService, DiplomaQuizService>();
 
             services.AddMediatR(cfg =>
             {
@@ -24,7 +25,7 @@ namespace ExaminationSystem.Application
                 cfg.AddOpenBehavior(typeof(ValidationBehavior<,>));
                
             });
-            services.AddAutoMapper(typeof(UserMappingProfile).Assembly);
+            return services;
         }
     }
 }
