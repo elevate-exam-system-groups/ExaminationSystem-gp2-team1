@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 namespace ExaminationSystem.Api.Controllers;
 
 [ApiController]
+[Route("api/[controller]")]
 public class ApiController : ControllerBase
 {
     protected ActionResult Problem(List<Error> errors)

@@ -18,6 +18,7 @@ namespace ExaminationSystem.API
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(connectionString));
 
+
             return services;
         }
         public static IServiceCollection AddAuthentictaion(this IServiceCollection services, IConfiguration configuration)

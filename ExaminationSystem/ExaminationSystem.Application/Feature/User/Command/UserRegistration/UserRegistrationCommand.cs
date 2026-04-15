@@ -7,7 +7,7 @@ using System.Text;
 
 namespace ExaminationSystem.Application.Feature.User.Commond.UserRegistration
 {
-    public record UserRegistrationCommond(
+    public record UserRegistrationCommand(
         string FirstName,
         string LastName,
         string Email,
