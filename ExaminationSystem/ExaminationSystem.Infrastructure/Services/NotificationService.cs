@@ -4,10 +4,11 @@ using MimeKit.Text;
 using SmtpClient = MailKit.Net.Smtp.SmtpClient;
 using Application.common.Models;
 using ExaminationSystem.Application.Common.Interfaces;
+using Microsoft.Extensions.Options;
 namespace Infrastructure.Services
 
 {
-    public class NotificationService(SmtpSettings smtpSettings) : INotificationService
+    public class NotificationService(IOptions<SmtpSettings> smtpSettings) : INotificationService
     {
         private readonly SmtpSettings _smtpSettings;
      

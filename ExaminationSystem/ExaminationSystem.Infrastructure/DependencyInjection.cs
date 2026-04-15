@@ -3,6 +3,7 @@ using ExaminationSystem.Application.Common.Interfaces;
 using ExaminationSystem.Domin.Contracts;
 using ExaminationSystem.Infrastructure._Data.Context;
 using ExaminationSystem.Infrastructure._UnitOfWork;
+using ExaminationSystem.Infrastructure.Identity;
 using ExaminationSystem.Infrastructure.Repo;
 using Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
@@ -26,14 +27,15 @@ namespace ExaminationSystem.Infrastructure
                 //.UseLazyLoadingProxies()
                 .UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
             });
+           
             #endregion
             services.AddScoped<IUnitOfWork,UnitOfWork>();
 
             services.Configure<SmtpSettings>(configuration.GetSection("SmtpSettings"));
             
             services.AddScoped<INotificationService, NotificationService>();    
+            services.AddScoped<IUserService, UserService>();    
             
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 

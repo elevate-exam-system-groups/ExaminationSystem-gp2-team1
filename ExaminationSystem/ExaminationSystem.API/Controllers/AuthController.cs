@@ -2,26 +2,23 @@
 using ExaminationSystem.Application.Feature.User.Command.AccountVerification;
 using ExaminationSystem.Application.Feature.User.Command.UserRegistration;
 using ExaminationSystem.Contracts.Requests.User;
-using ExaminationSystem.Domin.Common.Result;
-using ExaminationSystem.Entities;
 using MediatR;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExaminationSystem.API.Controllers
 {
-    public class AuthController(ISender mediator) :ApiController
+    public class AuthController(ISender mediator) : ApiController
     {
-        private readonly ISender _mediator;
-        [HttpPost]
-        public async Task<IActionResult> Register(UserRegistrationRequest request,LinkGenerator linkGenerator , CancellationToken ct)
+        [HttpPost("register")]
+        public async Task<IActionResult> Register(UserRegistrationRequest request, [FromServices] LinkGenerator linkGenerator, CancellationToken ct)
         {
-            var comman = new UserRegistrationCommand(
+            var command = new UserRegistrationCommand(
                 request.FirstName,
                 request.LastName,
                 request.Email,
                 request.Password);
-            var result = await mediator.Send(comman , ct);
+
+            var result = await mediator.Send(command, ct);
 
             return result.Match<IActionResult>(
                 response =>
@@ -40,20 +37,18 @@ namespace ExaminationSystem.API.Controllers
                     });
                 },
                 Problem);
-
         }
 
-
-
-        [HttpPost]
-        [Route("/verify-otp/{Guid:id}")]
-        public async Task<IActionResult> AccountVerification([FromQuery]Guid id ,[FromBody]int otp)
+        [HttpPost("verify-otp/{id:guid}")]
+        public async Task<IActionResult> AccountVerification([FromRoute] Guid id, [FromBody] int otp)
         {
-            var command = new AccountVerificationCommand(id,otp);
-            var result = await _mediator.Send(otp);
+            var command = new AccountVerificationCommand(id, otp);
+            var result = await mediator.Send(command);
             return Ok();
+/*
+            return result.Match<IActionResult>(
+                response => Ok(new { Message = "Account verified successfully" }),
+                Problem);*/
         }
-
-
     }
 }

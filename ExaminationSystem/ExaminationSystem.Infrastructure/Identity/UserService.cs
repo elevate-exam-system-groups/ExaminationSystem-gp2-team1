@@ -25,7 +25,7 @@ namespace ExaminationSystem.Infrastructure.Identity
 
         public Guid? GetUserId()
         {
-            var currentUserIdString = httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var currentUserIdString = _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             Guid? currentUserId = null;
             if (Guid.TryParse(currentUserIdString, out var parsedGuid))
             {
