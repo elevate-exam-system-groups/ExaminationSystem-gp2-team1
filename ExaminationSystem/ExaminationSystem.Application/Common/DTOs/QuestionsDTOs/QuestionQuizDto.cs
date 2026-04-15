@@ -5,10 +5,11 @@ using ExaminationSystem.Application.Common.DTOs.OptionsDTOs;
 
 namespace ExaminationSystem.Application.Common.DTOs.QuestionsDTOs
 {
-    public class QuestionDto
+    public class QuestionQuizDto
     {
-        public Guid Id { get; set; }
         public Guid QuestionId { get; set; }
+
+        public Guid QuizId { get; set; }
 
         public string Text { get; set; } = null!;
 
