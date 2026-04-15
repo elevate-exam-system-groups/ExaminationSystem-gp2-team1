@@ -1,5 +1,5 @@
 ﻿using Application.common.Models;
-using ExaminationSystem.Application.Comman.Behaviours;
+using ExaminationSystem.Application.Common.Behaviours;
 using FluentValidation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

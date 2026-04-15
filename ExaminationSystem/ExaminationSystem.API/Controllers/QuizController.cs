@@ -1,5 +1,5 @@
-﻿using ExaminationSystem.Application.Feature.Quizzes.Command.StartQuiz;
-using ExaminationSystem.Domin.Comman.Result;
+﻿using ExaminationSystem.Application.Feature.Quizzes.Commond.StartQuiz;
+using ExaminationSystem.Domin.Common.Result;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -23,7 +23,7 @@ namespace ExaminationSystem.API.Controllers
             Guid userId = default; // Get the user ID from the authenticated user context (e.g., JWT token, session, etc.)
 
             var result = await _mediator.Send(
-                new StartQuizCommand(quizId, userId));
+                new StartQuizCommond(quizId, userId));
 
             if (!result.IsSucess)
             {

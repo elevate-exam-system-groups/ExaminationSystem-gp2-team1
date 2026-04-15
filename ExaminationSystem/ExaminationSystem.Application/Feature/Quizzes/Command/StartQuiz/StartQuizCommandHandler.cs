@@ -5,18 +5,18 @@ using ExaminationSystem.Application.Common.DTOs.OptionsDTOs;
 using ExaminationSystem.Application.Common.DTOs.QuestionsDTOs;
 using ExaminationSystem.Application.DTOs.QuizzesDTOs;
 using ExaminationSystem.Application.Feature.Quizzes.Query;
-using ExaminationSystem.Domin.Comman.Result;
+using ExaminationSystem.Domin.Common.Result;
 using ExaminationSystem.Domin.Common.Result;
 using ExaminationSystem.Domin.Contracts;
 using ExaminationSystem.Domin.Entities.Enums;
 using ExaminationSystem.Entities;
 using MediatR;
 
-namespace ExaminationSystem.Application.Feature.Quizzes.Command.StartQuiz;
+namespace ExaminationSystem.Application.Feature.Quizzes.Commond.StartQuiz;
 
-public class StartQuizCommandHandler(IUnitOfWork _unitOfWork,IMediator _mediator) : IRequestHandler<StartQuizCommand, RequestResult<StartQuizResponse>>
+public class StartQuizCommondHandler(IUnitOfWork _unitOfWork,IMediator _mediator) : IRequestHandler<StartQuizCommond, RequestResult<StartQuizResponse>>
 {
-    public async Task<RequestResult<StartQuizResponse>> Handle(StartQuizCommand request, CancellationToken cancellationToken)
+    public async Task<RequestResult<StartQuizResponse>> Handle(StartQuizCommond request, CancellationToken cancellationToken)
     {
         // get time of starting the quiz
         var now = DateTime.UtcNow;

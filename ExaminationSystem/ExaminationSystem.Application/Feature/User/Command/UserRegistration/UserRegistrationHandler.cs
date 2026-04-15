@@ -9,18 +9,18 @@ using System.Collections.Generic;
 using System.Text;
 using ExaminationSystem.Domin.Entities;
 using BCrypt.Net;
-using ExaminationSystem.Domin.Comman.Result;
-namespace ExaminationSystem.Application.Feature.User.Command.UserRegistration
+using ExaminationSystem.Domin.Common.Result;
+namespace ExaminationSystem.Application.Feature.User.Commond.UserRegistration
 {
     public class UserRegistrationHandler(IUserService userService ,
         IGenericRepository<Entities.User> userRepository ,
         IUnitOfWork unitOfWork)
-        : IRequestHandler<UserRegistrationCommand, IResult>
+        : IRequestHandler<UserRegistrationCommond, IResult>
     {
         private readonly IUserService _userService;
         private readonly IGenericRepository<Entities.User> _userRepository;
         private readonly IUnitOfWork unitOfWork;
-        public async Task<IResult> Handle(UserRegistrationCommand request, CancellationToken cancellationToken)
+        public async Task<IResult> Handle(UserRegistrationCommond request, CancellationToken cancellationToken)
         {
             var roleId =  await _userService.GetRoleIdByNameAsync("Student");
 

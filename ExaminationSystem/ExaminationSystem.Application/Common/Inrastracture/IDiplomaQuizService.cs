@@ -1,6 +1,5 @@
-﻿using testexamination.Dtos;
-
-namespace testexamination.Iservices
+﻿using ExaminationSystem.Application.Dtos;
+namespace ExaminationSystem.Application.Common.Interfaces;
 {
     public interface IDiplomaQuizService
     {

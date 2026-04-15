@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 
-namespace ExaminationSystem.Domin.Comman;
+namespace ExaminationSystem.Domin.Common;
 
 public abstract class Entity
 {

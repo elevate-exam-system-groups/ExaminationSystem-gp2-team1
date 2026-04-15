@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace ExaminationSystem.Domin.Comman.Result
+namespace ExaminationSystem.Domin.Common.Result
 {
     public class Result 
     {
