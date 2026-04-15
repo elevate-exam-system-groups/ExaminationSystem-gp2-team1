@@ -1,5 +1,4 @@
-﻿using testexamination.Common.Exception;
-
+﻿/*
 namespace testexamination.Middleware
 {
     public class ExceptionHandlingMiddleware
@@ -23,3 +22,4 @@ namespace testexamination.Middleware
         }
     }
 }
+*/

@@ -24,7 +24,7 @@ namespace ExaminationSystem.Application.Feature.User.Commond.UserRegistration
         {
             var roleId =  await _userService.GetRoleIdByNameAsync("Student");
 
-            var existingUser = await _userRepository.IsExist(u => u.Email == request.Email);
+            var existingUser = await _userRepository.ExistsAsync(u => u.Email == request.Email);
 
             if (existingUser)
             {        

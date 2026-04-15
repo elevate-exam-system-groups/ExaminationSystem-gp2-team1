@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using ExaminationSystem.Application.Common.Interfaces;
+using ExaminationSystem.Application.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using testexamination.Dtos;
-using testexamination.Iservices;
+
 
 namespace testexamination.Controller
 {
