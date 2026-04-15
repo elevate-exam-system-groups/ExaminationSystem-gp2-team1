@@ -12,8 +12,12 @@ namespace ExaminationSystem.Application.Feature.Attempts.Command
     {
         public async Task<bool> Handle(UpdateAttemptAnswerCommand request, CancellationToken cancellationToken)
         {
-            var answer = await _attemptRepo.GetAll()
-            .FirstOrDefaultAsync(a => a.Id == request.AnswerId, cancellationToken);
+            var answer = await _attemptRepo.GetAll().Where(an=> an.Id == request.AnswerId).Select(an => new AttemptAnswer
+            {
+                SelectedOptionId = an.SelectedOptionId,
+                AnsweredAt = an.AnsweredAt
+            })
+            .FirstOrDefaultAsync(cancellationToken);
 
             if (answer == null)
             {

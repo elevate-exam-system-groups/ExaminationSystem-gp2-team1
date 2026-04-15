@@ -1,8 +1,10 @@
 using ExaminationSystem.API;
 using ExaminationSystem.Application;
 using ExaminationSystem.Domin.Contracts;
+using ExaminationSystem.Infrastructure;
 using ExaminationSystem.Infrastructure._UnitOfWork;
 using ExaminationSystem.Infrastructure.Repo;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -81,9 +83,9 @@ app.UseSwaggerUI(options =>
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-}
-    options.SwaggerEndpoint("/swagger/v1/swagger.json", "Examination System API v1");
-    options.RoutePrefix = "swagger"; // UI at /swagger
+/*
+    Options.SwaggerEndpoint("/swagger/v1/swagger.json", "Examination System API v1");
+    Options.RoutePrefix = "swagger"; // UI at /swagger*/
 });
 
 app.UseHttpsRedirection();
