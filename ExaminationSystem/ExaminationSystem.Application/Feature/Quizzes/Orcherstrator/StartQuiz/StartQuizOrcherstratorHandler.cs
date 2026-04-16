@@ -14,7 +14,12 @@ using MediatR;
 
 namespace ExaminationSystem.Application.Feature.Quizzes.Command.StartQuiz;
 
-public class StartQuizOrcherstratorHandler(IUnitOfWork _unitOfWork,IMediator _mediator) : IRequestHandler<StartQuizOrcherstrator, RequestResult<StartQuizResponse>>
+/// <summary>
+/// need private function for this all validations
+/// </summary>
+
+public class StartQuizOrcherstratorHandler(IUnitOfWork _unitOfWork,IMediator _mediator) 
+    : IRequestHandler<StartQuizOrcherstrator, RequestResult<StartQuizResponse>>
 {
     public async Task<RequestResult<StartQuizResponse>> Handle(StartQuizOrcherstrator request, CancellationToken cancellationToken)
     {
@@ -50,7 +55,7 @@ public class StartQuizOrcherstratorHandler(IUnitOfWork _unitOfWork,IMediator _me
                 "Attempt limit reached");
         }
 
-
+        // need refactor this to command 
         var attempt = new QuizAttempt
         {
             Id = Guid.NewGuid(),
@@ -64,6 +69,8 @@ public class StartQuizOrcherstratorHandler(IUnitOfWork _unitOfWork,IMediator _me
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
 
+
+        // need private medthod for this random questions 
         var questions = quiz.Questions.OrderBy(q => Guid.NewGuid())
         .Select(q => new QuestionDto
         {
@@ -87,4 +94,9 @@ public class StartQuizOrcherstratorHandler(IUnitOfWork _unitOfWork,IMediator _me
 
         return RequestResult<StartQuizResponse>.Sucess(response);
     }
+
+
+
+
+
 }
