@@ -7,5 +7,5 @@ using MediatR;
 
 namespace ExaminationSystem.Application.Feature.Questions;
 
-public record GetQuestionByIdNoOptionQuery(Guid QuestionId) : IRequest<RequestResult<QuestionQuizDto>>;
+public record GetQuestionByIdNoOptionQuery(Guid QuestionId) : IRequest<RequestResult<QuestionDto>>;
 
