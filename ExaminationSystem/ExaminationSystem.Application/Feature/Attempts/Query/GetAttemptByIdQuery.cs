@@ -8,5 +8,5 @@ using MediatR;
 
 namespace ExaminationSystem.Application.Feature.Attempts.Command;
 
-public record GetAttemptByIdQuery(Guid AttemptId) : IRequest<RequestResult<QuizAttemptDTOs>>;
+public record GetAttemptByIdQuery(Guid AttemptId) : IRequest<RequestResult<AttemptQuizDto>>;
 

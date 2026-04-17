@@ -23,7 +23,7 @@ namespace ExaminationSystem.Application.Feature.User.Command.UserRegistration
         public async Task<IResult> Handle(UserRegistrationCommand request, CancellationToken cancellationToken)
         {
             var roleId =  await _userService.GetRoleIdByNameAsync("Student");
-            var existingUser = await _userRepository.IsExist(u => u.Email == request.Email);
+            var existingUser = await _userRepository.ExistsAsync(u => u.Email == request.Email);
             if (existingUser)
             {        
               return new Result<Entities.User>(  new Error(ErrorCode.EmailIsAlreadyUsed , "A user with this email already exists."));                           
