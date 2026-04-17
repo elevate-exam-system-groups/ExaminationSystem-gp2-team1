@@ -12,13 +12,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ExaminationSystem.Application.Feature.Questions.Handlers
 {
-    public class GetQuestionByIdNoOptionQueryHandler(IGenericRepository<Question> _questionRepo) : IRequestHandler<GetQuestionByIdNoOptionQuery, RequestResult<QuestionDto>>
+    public class GetQuestionByIdNoOptionQueryHandler(IGenericRepository<Question> _questionRepo) : IRequestHandler<GetQuestionByIdNoOptionQuery, RequestResult<QuestionWithNoOptionsDto>>
     {
-        public async Task<RequestResult<QuestionDto>> Handle(GetQuestionByIdNoOptionQuery request, CancellationToken cancellationToken)
+        public async Task<RequestResult<QuestionWithNoOptionsDto>> Handle(GetQuestionByIdNoOptionQuery request, CancellationToken cancellationToken)
         {
             var question = await _questionRepo.GetAll()
                 .Where(q => q.Id == request.QuestionId)
-                .Select(q => new QuestionDto
+                .Select(q => new QuestionWithNoOptionsDto
                 {
                     QuestionId = q.Id,
                     Text = q.Text,
@@ -27,10 +27,10 @@ namespace ExaminationSystem.Application.Feature.Questions.Handlers
 
             if (question is null)
             {
-                return RequestResult<QuestionDto>.Failure(ErrorCode.NotFound, "Question not found");
+                return RequestResult<QuestionWithNoOptionsDto>.Failure(ErrorCode.NotFound, "Question not found");
             }
 
-            return RequestResult<QuestionDto>.Sucess(question);
+            return RequestResult<QuestionWithNoOptionsDto>.Sucess(question);
         }
     }
 }
