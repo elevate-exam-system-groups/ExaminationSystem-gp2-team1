@@ -49,7 +49,7 @@ namespace ExaminationSystem.Application.Feature.Attempts.Orcherstrator
             }
 
 
-            var question = await _mediator.Send(new GetQuestionByIdQuery(request.QuestionId));
+            var question = await _mediator.Send(new GetQuestionByIdWithOptionQuery(request.QuestionId));
 
             if(!question.IsSucess) 
             {
