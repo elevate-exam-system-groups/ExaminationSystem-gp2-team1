@@ -18,9 +18,6 @@ public class StartQuizOrcherstratorHandler(IMediator _mediator) : IRequestHandle
 {
     public async Task<RequestResult<StartQuizResponse>> Handle(StartQuizOrcherstrator request, CancellationToken cancellationToken)
     {
-        // get time of starting the quiz
-        var now = DateTime.UtcNow;
-
         // need get quiz 
         var quiz = await _mediator.Send(new GetQuizByIdQuery(request.QuizId),cancellationToken);
 
@@ -50,24 +47,6 @@ public class StartQuizOrcherstratorHandler(IMediator _mediator) : IRequestHandle
                 "Attempt limit reached");
         }
 
-
-        //var attempt = new QuizAttempt
-        //{
-        //    Id = Guid.NewGuid(),
-        //    StudentId = request.UserId,
-        //    QuizId = request.QuizId,
-        //    Status = QuizAttemptStatus.inProgress,
-        //    StartedAt = now,
-        //    TotalQuestions = quizData.Questions.Count // this row is importand >?? is that from meta data of quiz or from attempt answer count ??
-        //};
-        //_unitOfWork.GetRepository<QuizAttempt>().Add(attempt);
-        //await _unitOfWork.SaveChangesAsync(cancellationToken);
-
-
-
-        ///
-        /// need look here again to test 
-        ///
         var attempt = await _mediator.Send(new CreateQuizAttemptCommand(request.UserId,request.QuizId));
 
         if (attempt.IsSucess) 
@@ -78,20 +57,7 @@ public class StartQuizOrcherstratorHandler(IMediator _mediator) : IRequestHandle
 
 
         /// shuffle questions and options
-        /// need adding private method to shuffle list of questions
-        var questions = quizData.Questions.OrderBy(q => Guid.NewGuid())
-        .Select(q => new QuestionDto
-        {
-            Id = q.Id,
-            Text = q.Text,
-            Options = q.Options
-                        .OrderBy(o => Guid.NewGuid())
-                        .Select(o => new OptionDto
-                        {
-                            Id = o.Id,
-                            Text = o.Text
-                        }).ToList()
-        }).ToList();
+        var questions = ShuffleQuestions(quizData.Questions);
 
         var response = new StartQuizResponse
         {
@@ -102,4 +68,24 @@ public class StartQuizOrcherstratorHandler(IMediator _mediator) : IRequestHandle
 
         return RequestResult<StartQuizResponse>.Sucess(response);
     }
+
+
+    private List<QuestionWithOptionsDto> ShuffleQuestions(IEnumerable<QuestionWithOptionsDto> questions)
+    {
+        return questions
+            .OrderBy(q => Guid.NewGuid())
+            .Select(q => new QuestionWithOptionsDto
+            {
+                Id = q.Id,
+                Text = q.Text,
+                Options = q.Options
+                    .OrderBy(o => Guid.NewGuid())
+                    .Select(o => new OptionDto
+                    {
+                        Id = o.Id,
+                        Text = o.Text
+                    }).ToList()
+            }).ToList();
+    }
+
 }
