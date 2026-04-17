@@ -22,7 +22,9 @@ namespace ExaminationSystem.Application.Feature.Attempts.Orcherstrator
 
         public async Task<RequestResult<bool>> Handle(AnswerQuestionOrcherstrator request, CancellationToken cancellationToken)
         {
-
+            ///
+            /// need make private method for this validation 
+            ///
             var attempt = await _mediator.Send(new GetAttemptByIdQuery(request.AttemptId));
 
             if (!attempt.IsSucess)
