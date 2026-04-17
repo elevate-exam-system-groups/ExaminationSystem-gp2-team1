@@ -5,7 +5,6 @@ using ExaminationSystem.Application.Common.DTOs.OptionsDTOs;
 using ExaminationSystem.Application.Common.DTOs.QuestionsDTOs;
 using ExaminationSystem.Application.DTOs.QuizzesDTOs;
 using ExaminationSystem.Application.Feature.Quizzes.Query;
-using ExaminationSystem.Domin.Comman.Result;
 using ExaminationSystem.Domin.Common.Result;
 using ExaminationSystem.Domin.Contracts;
 using ExaminationSystem.Domin.Entities.Enums;

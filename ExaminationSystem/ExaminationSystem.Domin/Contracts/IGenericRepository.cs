@@ -1,4 +1,4 @@
-﻿using ExaminationSystem.Domin.Comman;
+﻿using ExaminationSystem.Domin.Common;
 using System.Linq.Expressions;
 
 namespace ExaminationSystem.Domin.Contracts

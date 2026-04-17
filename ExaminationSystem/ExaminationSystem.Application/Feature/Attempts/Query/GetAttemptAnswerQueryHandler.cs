@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 using ExaminationSystem.Application.Common.DTOs.AttemptDTOs;
-using ExaminationSystem.Domin.Comman.Result;
 using ExaminationSystem.Domin.Common.Result;
 using ExaminationSystem.Domin.Contracts;
 using ExaminationSystem.Entities;

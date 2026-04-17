@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ExaminationSystem.Domin.Comman.Result
+namespace ExaminationSystem.Domin.Common.Result
 {
     public enum ErrorCode
     {
+        ValidationError,
+        EmailIsAlreadyUsed,
+        RegistrationFailed,
         NoError = 0,
         /// for Start Quiz 
         ///   Limit reached: 403 
@@ -19,9 +22,6 @@ namespace ExaminationSystem.Domin.Comman.Result
         Expired = 408,
         Unprocessable = 409,
 
-        ValidationError,
-        EmailIsAlreadyUsed,
-        RegistrationFailed,
 
         
     }

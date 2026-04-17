@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace ExaminationSystem.Domin.Comman;
+namespace ExaminationSystem.Domin.Common;
 
 public abstract class AuditableEntity : Entity
 {

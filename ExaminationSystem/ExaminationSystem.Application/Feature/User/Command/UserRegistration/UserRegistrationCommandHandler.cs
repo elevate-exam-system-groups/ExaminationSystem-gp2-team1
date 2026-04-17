@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Text;
 using ExaminationSystem.Domin.Entities;
 using BCrypt.Net;
-using ExaminationSystem.Domin.Comman.Result;
+using ExaminationSystem.Application.Feature.User.Commond.UserRegistration;
 namespace ExaminationSystem.Application.Feature.User.Command.UserRegistration
 {
     public class UserRegistrationHandler(IUserService userService ,

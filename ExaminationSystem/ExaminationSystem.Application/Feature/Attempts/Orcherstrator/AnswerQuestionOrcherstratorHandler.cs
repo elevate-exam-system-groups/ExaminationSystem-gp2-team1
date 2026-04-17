@@ -4,7 +4,6 @@ using System.Text;
 using ExaminationSystem.Application.Feature.Attempts.Command;
 using ExaminationSystem.Application.Feature.Attempts.Query;
 using ExaminationSystem.Application.Feature.Questions;
-using ExaminationSystem.Domin.Comman.Result;
 using ExaminationSystem.Domin.Common.Result;
 using ExaminationSystem.Domin.Contracts;
 using ExaminationSystem.Domin.Entities.Enums;

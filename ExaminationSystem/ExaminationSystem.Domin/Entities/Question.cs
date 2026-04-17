@@ -1,4 +1,4 @@
-﻿using ExaminationSystem.Domin.Comman;
+﻿using ExaminationSystem.Domin.Common;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
