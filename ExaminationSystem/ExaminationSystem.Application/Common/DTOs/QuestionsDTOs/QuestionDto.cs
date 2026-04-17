@@ -12,6 +12,7 @@ namespace ExaminationSystem.Application.Common.DTOs.QuestionsDTOs
 
         public string Text { get; set; } = null!;
 
-        public List<OptionDto> Options { get; set; } = new();
+        public List<OptionDto>? Options { get; set; } = new();
     }
 }
+    
