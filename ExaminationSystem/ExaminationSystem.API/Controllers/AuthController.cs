@@ -1,6 +1,7 @@
 ﻿using ExaminationSystem.Api.Controllers;
 using ExaminationSystem.Application.Feature.User.Command.AccountVerification;
 using ExaminationSystem.Application.Feature.User.Command.UserRegistration;
+using ExaminationSystem.Application.Feature.User.Commond.UserRegistration;
 using ExaminationSystem.Contracts.Requests.User;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;

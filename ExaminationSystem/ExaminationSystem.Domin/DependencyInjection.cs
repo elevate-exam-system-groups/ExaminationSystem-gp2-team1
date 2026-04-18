@@ -2,7 +2,7 @@
 
 using Microsoft.Extensions.DependencyInjection;
 
-namespace ExaminationSystem.Application
+namespace ExaminationSystem.Domin
 {
     public static class DependencyInjection
     {
