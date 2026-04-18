@@ -12,6 +12,7 @@ using BCrypt.Net;
 using ExaminationSystem.Domin.Common.Result;
 using AutoMapper;
 using ExaminationSystem.Application.Feature.User.Dto;
+using ExaminationSystem.Application.Feature.User.Commond.UserRegistration;
 namespace ExaminationSystem.Application.Feature.User.Command.UserRegistration
 {
     public class UserRegistrationCommandHandler(IUserService userService ,
