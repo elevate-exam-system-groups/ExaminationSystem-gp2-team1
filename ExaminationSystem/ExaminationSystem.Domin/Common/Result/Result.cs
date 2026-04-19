@@ -1,20 +1,15 @@
 ﻿using ExaminationSystem.Domin.Common.Result;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ExaminationSystem.Domin.Comman.Result
 {
-    public static class Result 
+    public static class Result
     {
         public static Success Success => default;
         public static Created Created => default;
         public static Deleted Deleted => default;
         public static Updated Updated => default;
     }
-    public class Result<TValue> : IResult<TValue> where TValue : AuditableEntity 
+    public class Result<TValue> : IResult<TValue>
     {
         private readonly TValue? _value = default;
 
@@ -22,10 +17,10 @@ namespace ExaminationSystem.Domin.Comman.Result
 
         public bool IsSuccess { get; }
 
-         string Message { get; set; }
+        string Message { get; set; }
 
-      
-     
+
+
         private Result(TValue value)
         {
             if (value is null)
@@ -38,7 +33,7 @@ namespace ExaminationSystem.Domin.Comman.Result
             IsSuccess = true;
         }
 
-       
+
         private Result(Error error)
         {
             _errors = [error];
