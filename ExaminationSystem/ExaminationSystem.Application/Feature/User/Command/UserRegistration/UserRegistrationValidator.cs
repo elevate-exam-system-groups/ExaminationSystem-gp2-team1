@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ExaminationSystem.Application.Feature.User.Commond.UserRegistration
 {
-    public class UserRegistrationValidator : AbstractValidator<UserRegistrationCommand>
+    public sealed class UserRegistrationValidator : AbstractValidator<UserRegistrationCommand>
     {
         public UserRegistrationValidator()
         {

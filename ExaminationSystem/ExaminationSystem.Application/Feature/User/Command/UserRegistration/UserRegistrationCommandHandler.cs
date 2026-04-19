@@ -15,7 +15,7 @@ using ExaminationSystem.Application.Feature.User.Dto;
 using ExaminationSystem.Application.Feature.User.Commond.UserRegistration;
 namespace ExaminationSystem.Application.Feature.User.Command.UserRegistration
 {
-    public class UserRegistrationCommandHandler(IUserService userService ,
+    public sealed class UserRegistrationCommandHandler(IUserService userService ,
         IGenericRepository<Entities.User> userRepository ,
         IUnitOfWork unitOfWork,
         IMapper mapper)

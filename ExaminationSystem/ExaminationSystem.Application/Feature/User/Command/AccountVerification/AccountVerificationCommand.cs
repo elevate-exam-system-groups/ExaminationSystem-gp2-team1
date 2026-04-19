@@ -7,6 +7,6 @@ using System.Collections.Generic;
 using System.Text;
 namespace ExaminationSystem.Application.Feature.User.Command.AccountVerification
 {
-    public record AccountVerificationCommand(Guid userId,int otp ) : IRequest<Result>;
+    public sealed record AccountVerificationCommand(Guid userId,int otp ) : IRequest<Result>;
     
 }

@@ -16,8 +16,12 @@ namespace ExaminationSystem.Domin.Common.Result
         LimitReached = 403,
         NotFound = 404,
         ExistingAttempt = 409,
-
-
-        
+        OtpExpired = 410,
+        OtpAlreadyUsed = 411,
+        OtpInvalid = 412,
+        OtpRateLimitExceeded = 413,
+        OtpMaxAttemptsExceeded = 414,
+        NotificationFailed = 415,
+        InCorrectPassword = 416,
     }
 }
