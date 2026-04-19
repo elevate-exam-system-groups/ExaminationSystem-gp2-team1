@@ -29,7 +29,7 @@ namespace ExaminationSystem.Application.Feature.Student.Dashboard.Queries
             if (cached is not null)
                 return cached;
 
-            // 🟢 Attempts
+
             var attempts = await _unitOfWork
                 .GetRepository<QuizAttempt>()
                 .GetAll()
@@ -44,7 +44,7 @@ namespace ExaminationSystem.Application.Feature.Student.Dashboard.Queries
                 })
                 .ToListAsync(cancellationToken);
 
-            // 🟢 Enrollments
+
             var enrollments = await _unitOfWork
                 .GetRepository<StudentDiplomaEnrollment>()
                 .GetAll()
@@ -59,7 +59,7 @@ namespace ExaminationSystem.Application.Feature.Student.Dashboard.Queries
 
             var dashboard = new StudentDashboardDto();
 
-            // ✔️ Recent Attempts
+
             dashboard.RecentAttempts = attempts
                 .OrderByDescending(a => a.SubmittedAt)
                 .Take(5)
@@ -72,7 +72,7 @@ namespace ExaminationSystem.Application.Feature.Student.Dashboard.Queries
                 })
                 .ToList();
 
-            // ✔️ Stats
+
             dashboard.OverallStats = new OverallStatsDto
             {
                 AverageScore = attempts.Where(a => a.Score.HasValue)
@@ -85,7 +85,7 @@ namespace ExaminationSystem.Application.Feature.Student.Dashboard.Queries
                 PassedCount = attempts.Count(a => a.IsPassed == true)
             };
 
-            // ✔️ Diplomas
+
             dashboard.EnrolledDiplomas = enrollments
                 .Select(e => new EnrolledDiplomaDto
                 {
