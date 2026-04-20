@@ -4,6 +4,7 @@ using ExaminationSystem.Application.Feature.Otp.Commands.RequestOtp;
 using ExaminationSystem.Application.Feature.Otp.Commands.ResendOtp;
 using ExaminationSystem.Application.Feature.Otp.Commands.VerifyOtp;
 using ExaminationSystem.Application.Feature.User.Command.AccountVerification;
+using ExaminationSystem.Application.Feature.User.Command.Login;
 using ExaminationSystem.Application.Feature.User.Command.UserRegistration;
 using ExaminationSystem.Application.Feature.User.Commond.UserRegistration;
 
@@ -94,7 +95,7 @@ namespace ExaminationSystem.API.Controllers
                 Problem);
         }
 
-       
+
         [HttpPost("resend-otp")]
         [ProducesResponseType(typeof(object), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
@@ -110,6 +111,18 @@ namespace ExaminationSystem.API.Controllers
 
             return result.Match<IActionResult>(
                 message => Ok(new { Success = true, Message = message }),
+                Problem);
+        }
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(
+            [FromBody] LoginRequest request,
+            CancellationToken ct)
+        {
+            var command = new LoginCommand(request.Email, request.Password);
+            var result = await mediator.Send(command, ct);
+
+            return result.Match<IActionResult>(
+                tokenResponse => Ok(tokenResponse),
                 Problem);
         }
     }

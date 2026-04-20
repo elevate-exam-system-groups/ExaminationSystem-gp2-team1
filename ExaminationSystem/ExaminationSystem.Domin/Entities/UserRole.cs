@@ -1,4 +1,6 @@
 using ExaminationSystem.Domin.Common;
+using ExaminationSystem.Domin.Entities;
+using ExaminationSystem.Domin.Entities.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace ExaminationSystem.Entities
@@ -8,14 +10,9 @@ namespace ExaminationSystem.Entities
     /// </summary>
     public class UserRole : AuditableEntity
     {
-        [Required]
-        [MaxLength(50)]
-        public string Name { get; set; } = string.Empty;
-
-        [MaxLength(200)]
-        public string? Description { get; set; }
-
-        // Navigation property
-        public virtual ICollection<User> Users { get; set; } = new HashSet<User>();
+        public Guid UserId { get; set; }
+        public User User { get; set; } = null!;
+        public UserRoleCode RoleId { get; set; }
+        public Role Role { get; set; } = null!;
     }
 }

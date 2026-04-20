@@ -23,12 +23,7 @@ namespace ExaminationSystem.Entities
         [Required]
         public string PasswordHash { get; set; } = string.Empty;
 
-        /// <summary>
-        /// FK to UserRole table ("Student" or "Admin")
-        /// </summary>
-        [Required]
-        [ForeignKey(nameof(Role))]
-        public Guid RoleId { get; set; } 
+      
 
         /// <summary>
         /// Account status: "pending", "active", or "locked"
@@ -45,7 +40,7 @@ namespace ExaminationSystem.Entities
         public int FailedOtpAttempts { get; set; } = 0;
 
         // Navigation properties
-        public virtual UserRole Role { get; set; } = null!;
+        public virtual ICollection<UserRole>   Roles { get; set; } = new HashSet<UserRole>();
         public virtual ICollection<OtpRecord> OtpRecords { get; set; } = new HashSet<OtpRecord>();
         public virtual ICollection<PasswordResetToken> PasswordResetTokens { get; set; } = new HashSet<PasswordResetToken>();
         public virtual ICollection<RefreshToken> RefreshTokens { get; set; } = new HashSet<RefreshToken>();

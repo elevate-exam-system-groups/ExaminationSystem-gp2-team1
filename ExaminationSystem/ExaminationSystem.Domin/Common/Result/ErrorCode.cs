@@ -23,5 +23,6 @@ namespace ExaminationSystem.Domin.Common.Result
         OtpMaxAttemptsExceeded = 414,
         NotificationFailed = 415,
         InCorrectPassword = 416,
+        FaildSaveRefreshToken = 417,
     }
 }

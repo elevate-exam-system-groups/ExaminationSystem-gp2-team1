@@ -19,7 +19,7 @@ namespace ExaminationSystem.Contracts.Requests.UserUserRequests
         public sealed record ResendOtpRequest(string Identifier, OtpPurpose Purpose);
 
         public sealed record VerifyOtpRequest(string Identifier, OtpPurpose Purpose, string OtpCode);
-
+        public sealed record LoginRequest(string Email, string Password);
 
 
     }

@@ -6,9 +6,9 @@ using ExaminationSystem.Entities;
 
 namespace ExaminationSystem.Application.Common.Interfaces;
 
-public interface ITokenProvider
+public interface ITokenService
 {
-   Task<Result<TokenResponse>> GenerateJwtTokenAsync(User user, CancellationToken ct = default);
+   Task<Result<TokenResponse>> GenerateJwtTokenAsync(Guid id, string email, List<string> roles, CancellationToken ct = default);
 
    /* ClaimsPrincipal? GetPrincipalFromExpiredToken(string token);*/
 }
