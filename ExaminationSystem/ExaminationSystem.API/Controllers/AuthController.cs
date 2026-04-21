@@ -4,20 +4,22 @@ using ExaminationSystem.Application.Feature.Otp.Commands.RequestOtp;
 using ExaminationSystem.Application.Feature.Otp.Commands.ResendOtp;
 using ExaminationSystem.Application.Feature.Otp.Commands.VerifyOtp;
 using ExaminationSystem.Application.Feature.Users.Command.AccountVerification;
+using ExaminationSystem.Application.Feature.Users.Command.ForgetPassword;
 using ExaminationSystem.Application.Feature.Users.Command.Login;
 using ExaminationSystem.Application.Feature.Users.Command.UserRegistration;
 using ExaminationSystem.Application.Feature.Users.Commond.UserRegistration;
 
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using static ExaminationSystem.Contracts.Requests.UserUserRequests.UserRequests;
 
 namespace ExaminationSystem.API.Controllers
 {
-    public class AuthController(ISender mediator , IHttpContextAccessor httpContextAccessor) : ApiController
+    public class AuthController(ISender mediator, IHttpContextAccessor httpContextAccessor , LinkGenerator linkGenerator) : ApiController
     {
         [HttpPost("register")]
-        public async Task<IActionResult> Register(UserRegistrationRequest request, [FromServices] LinkGenerator linkGenerator, CancellationToken ct)
+        public async Task<IActionResult> Register(UserRegistrationRequest request, CancellationToken ct)
         {
             var command = new UserRegistrationCommand(
                 request.FirstName,
@@ -46,37 +48,37 @@ namespace ExaminationSystem.API.Controllers
                 Problem);
         }
 
-   /*     [HttpPost("verify-otp/{id:guid}")]
-        public async Task<IActionResult> AccountVerification([FromRoute] Guid id, [FromBody] int otp)
-        {
-            var command = new AccountVerificationCommand(id, otp);
-            var result = await mediator.Send(command);
-            return Ok();
-            *//*
-                        return result.Match<IActionResult>(
-                            response => Ok(new { Message = "Account verified successfully" }),
-                            Problem);*//*
-        }*/
+        /*     [HttpPost("verify-otp/{id:guid}")]
+             public async Task<IActionResult> AccountVerification([FromRoute] Guid id, [FromBody] int otp)
+             {
+                 var command = new AccountVerificationCommand(id, otp);
+                 var result = await mediator.Send(command);
+                 return Ok();
+                 *//*
+                             return result.Match<IActionResult>(
+                                 response => Ok(new { Message = "Account verified successfully" }),
+                                 Problem);*//*
+             }*/
 
-      /*  [HttpPost("request-otp")]
-        [ProducesResponseType(typeof(object), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status429TooManyRequests)]
-        public async Task<IActionResult> RequestOtp(
-            [FromBody] RequestOtpRequest request,
-            CancellationToken ct)
-        {
-            var clientIp = httpContextAccessor.HttpContext?.Connection.RemoteIpAddress?.ToString();
+        /*  [HttpPost("request-otp")]
+          [ProducesResponseType(typeof(object), StatusCodes.Status200OK)]
+          [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
+          [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status429TooManyRequests)]
+          public async Task<IActionResult> RequestOtp(
+              [FromBody] RequestOtpRequest request,
+              CancellationToken ct)
+          {
+              var clientIp = httpContextAccessor.HttpContext?.Connection.RemoteIpAddress?.ToString();
 
-            var command = new RequestOtpCommand(request.Identifier, request.Purpose, clientIp);
-            var result = await mediator.Send(command, ct);
+              var command = new RequestOtpCommand(request.Identifier, request.Purpose, clientIp);
+              var result = await mediator.Send(command, ct);
 
-            return result.Match<IActionResult>(
-                message => Ok(new { Success = true, Message = message }),
-                Problem);
-        }*/
+              return result.Match<IActionResult>(
+                  message => Ok(new { Success = true, Message = message }),
+                  Problem);
+          }*/
 
-     
+
         [HttpPost("verify-otp")]
         [ProducesResponseType(typeof(object), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
@@ -123,6 +125,42 @@ namespace ExaminationSystem.API.Controllers
                 tokenResponse => Ok(tokenResponse),
                 Problem);
         }
-    }
 
-}
+        [HttpPost("forget-password")]
+        [EnableRateLimiting("SlidingWindow")]
+        public async Task<IActionResult> ForgetPassword(
+            [FromBody] ForgetPasswordRequest request,
+            CancellationToken ct)
+        {
+            var verificationUri = linkGenerator.GetUriByAction(
+                        HttpContext,
+                        action: nameof(ResetPassword),
+                        controller: "Auth"
+                        );
+            var command = new ForgetPasswordCommand(request.Email, verificationUri);
+            var result = await mediator.Send(command, ct);
+
+            return result.Match<IActionResult>(
+                message => Ok(new { Success = true, Message = message }),
+                Problem);
+        }
+
+        [HttpPost("reset-password/{token}&&{email}")]
+        public async Task<IActionResult> ResetPassword(
+            [FromRoute] string token,
+            [FromRoute] string email,
+            [FromBody] ResetPasswordRequest request,
+            CancellationToken ct)
+        {
+            var command = new ResetPasswordCommand(email, token, request.NewPassword , request.ConfirmPassword);
+            var result = await mediator.Send(command, ct);
+            return result.Match<IActionResult>(
+                message => Ok(new { Success = true, Message = message }),
+                Problem
+                
+                );
+
+
+        }
+
+    }

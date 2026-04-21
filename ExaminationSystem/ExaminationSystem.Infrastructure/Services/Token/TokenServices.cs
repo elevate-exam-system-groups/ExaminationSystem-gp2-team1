@@ -57,17 +57,22 @@ namespace ExaminationSystem.Infrastructure.Services.Token
                 Audience = _jwtSettings.Audience,
                 Expires = DateTime.Now.AddMinutes(_jwtSettings.DurationInMinutes),
                 Subject = new ClaimsIdentity(Claims),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256)
+                SigningCredentials = creds
 
             };
 
             var securityToken = new JwtSecurityTokenHandler().CreateToken(token);
 
-            var oldRefreshTokens = await _refreshRepository.Find(rt => rt.UserId == id).ExecuteDeleteAsync();
+            await _refreshRepository
+                  .Find(rt => rt.UserId == id && rt.ExpiresAt < DateTime.UtcNow)
+                  .ExecuteDeleteAsync();
 
+
+            var rawToken = GenerateRefreshToken();
             var refreshToken = new RefreshToken
             {
-                TokenHash = GenerateRefreshToken(),
+                TokenHash = Convert.ToHexString(
+                    SHA256.HashData(Encoding.UTF8.GetBytes(rawToken))),
                 UserId = id,
                 ExpiresAt = DateTime.UtcNow.AddDays(7)
             };
@@ -93,7 +98,11 @@ namespace ExaminationSystem.Infrastructure.Services.Token
 
         private static string GenerateRefreshToken()
         {
-            return Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
+            return Convert.ToBase64String(RandomNumberGenerator.GetBytes(32))
+               .Replace("+", "-")
+               .Replace("/", "_")
+               .Replace("=", "");
         }
+
     }
 }

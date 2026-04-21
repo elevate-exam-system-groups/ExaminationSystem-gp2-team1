@@ -29,7 +29,7 @@ namespace ExaminationSystem.Application.Feature.Users.Command.Login
                 ))
             .FirstOrDefaultAsync(cancellationToken); if (user == null)
             {
-                return new Result<TokenResponse>(new Error(ErrorCode.InCorrectPassword, "The email or password is incorrect."));
+                return new Result<TokenResponse>(new Error(ErrorCode.UserNotFound, "User with the provided email does not exist."));
             }
             if (!BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
             {

@@ -24,5 +24,6 @@ namespace ExaminationSystem.Domin.Common.Result
         NotificationFailed = 415,
         InCorrectPassword = 416,
         FaildSaveRefreshToken = 417,
+        UserNotFound = 418,
     }
 }

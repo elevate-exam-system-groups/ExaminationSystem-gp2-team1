@@ -4,7 +4,7 @@ namespace ExaminationSystem.Infrastructure.Services.Notification;
 
 public static class OtpEmailFormatter
 {
-    public static string GetEmailContent(OtpPurpose purpose, int expiryMinutes, string otpCode)
+    public static string GetOtpEmailContent(OtpPurpose purpose, int expiryMinutes, string otpCode)
     {
         return purpose switch
         {

@@ -93,7 +93,7 @@ namespace ExaminationSystem.API
 
 
             // 6. Rate limiting (before authentication to protect auth endpoints)
-            //app.UseRateLimiter();
+            app.UseRateLimiter();
 
             // 7. Authentication (must come before authorization)
             app.UseAuthentication();

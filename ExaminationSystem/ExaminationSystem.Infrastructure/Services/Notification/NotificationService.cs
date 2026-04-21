@@ -52,7 +52,7 @@ namespace Infrastructure.Services
         CancellationToken cancellationToken = default) 
         {
             var subject = $"Your new {purpose} verification code";
-            var body = OtpEmailFormatter.GetEmailContent(purpose, expirationMinutes, otpCode);
+            var body = OtpEmailFormatter.GetOtpEmailContent(purpose, expirationMinutes, otpCode);
 
             try
             {
@@ -69,6 +69,27 @@ namespace Infrastructure.Services
                 return new Result<string>(new Error(
                     ErrorCode.NotificationFailed,
                     "Failed to send the verification email. Please try again later."
+                ));
+            }
+        }
+
+        public async Task<Result<string>> SendForgetPasswordEmailAsync(string email, Link link)
+        {
+            var subject = "Password Reset Request";
+           
+            var baseUrl = link.VerificationUri; 
+            var body = ForgetPasswordEmailFormatter.GetForgetPasswordEmailContent(link);
+
+            try
+            {
+                await SendEmailAsync(email, subject, body, CancellationToken.None);
+                return new Result<string>("Password reset email sent successfully.");
+            }
+            catch (Exception ex)
+            {
+                return new Result<string>(new Error(
+                    ErrorCode.NotificationFailed,
+                    "Failed to send the password reset email. Please try again later."
                 ));
             }
         }
