@@ -16,7 +16,7 @@ public static class ForgetPasswordEmailFormatter
       Link link, 
         int expirationHours = 1)
     {
-        var resetLink = $"{link.VerificationUri}/auth/reset-password?token={Uri.EscapeDataString(link.Token)}&email={Uri.EscapeDataString(link.Email)}";
+        var resetLink = $"{link.VerificationUri}auth/reset-password?token={Uri.EscapeDataString(link.Token)}&email={Uri.EscapeDataString(link.Email)}";
 
         return $@"
 <html>

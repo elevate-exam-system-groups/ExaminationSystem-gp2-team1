@@ -9,15 +9,14 @@ using Microsoft.AspNetCore.Routing;
 using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
-using System.Text;
+
 
 namespace ExaminationSystem.Application.Feature.Users.Command.ForgetPassword;
 
 public sealed class ForgetPasswordCommandHandler(IGenericRepository<User> _userRepository,
     INotificationService _notification , 
     IResetTokenService _resetTokenService,
-    IConnectionMultiplexer _redis,
-    LinkGenerator _linkGenerator
+    IConnectionMultiplexer _redis
     ) : IRequestHandler<ForgetPasswordCommand, Result<string>>
 {
     private readonly IDatabase _database = _redis.GetDatabase();
@@ -29,12 +28,12 @@ public sealed class ForgetPasswordCommandHandler(IGenericRepository<User> _userR
             return new Result<string>(new Error(ErrorCode.UserNotFound, "User with the provided email does not exist."));
         }
 
-        var token = _resetTokenService.GenerateToken();
+        
         var hashedToken = _resetTokenService.HashToken();
         var key = $"ForgetPasswordToken:{request.Email}";
         await _database.StringSetAsync(key, hashedToken, TimeSpan.FromHours(1));
 
-        var resetLink = new Link(request.VerificationUri, token, request.Email);
+        var resetLink = new Link(request.VerificationUri, hashedToken, request.Email);
         var result = await _notification.SendForgetPasswordEmailAsync(request.Email, resetLink);
 
         return result.IsSuccess 

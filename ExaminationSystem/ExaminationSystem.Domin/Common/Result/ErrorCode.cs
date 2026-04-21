@@ -25,5 +25,8 @@ namespace ExaminationSystem.Domin.Common.Result
         InCorrectPassword = 416,
         FaildSaveRefreshToken = 417,
         UserNotFound = 418,
+        PasswordNotMatch = 419,
+        NoResetRequest = 420,
+        PasswordResetFailed = 421,
     }
 }
