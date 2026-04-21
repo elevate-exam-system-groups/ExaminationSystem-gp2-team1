@@ -1,4 +1,5 @@
 ﻿using ExaminationSystem.Domin.Common;
+using ExaminationSystem.Domin.Entities;
 using ExaminationSystem.Domin.Entities.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -23,7 +24,7 @@ namespace ExaminationSystem.Entities
         [Required]
         public string PasswordHash { get; set; } = string.Empty;
 
-      
+
 
         /// <summary>
         /// Account status: "pending", "active", or "locked"

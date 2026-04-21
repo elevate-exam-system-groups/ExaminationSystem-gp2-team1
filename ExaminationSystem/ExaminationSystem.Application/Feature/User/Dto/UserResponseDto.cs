@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace ExaminationSystem.Application.Feature.User.Dto
+namespace ExaminationSystem.Application.Feature.Users.Dto
 {
     public class UserResponseDto
     {

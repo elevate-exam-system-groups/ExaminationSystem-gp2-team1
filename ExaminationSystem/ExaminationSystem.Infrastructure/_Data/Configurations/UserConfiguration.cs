@@ -1,3 +1,4 @@
+using ExaminationSystem.Domin.Entities;
 using ExaminationSystem.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -43,11 +44,11 @@ namespace ExaminationSystem.Infrastructure._Data.Configurations
                 .HasDatabaseName("IX_Users_Email_Unique");
 
             // Foreign key to UserRole
-            builder.HasOne(u => u.Role)
-                .WithMany(ur => ur.Users)
+            builder.HasMany(u => u.Roles)
+                .WithOne(ur => ur.User)
                 .HasForeignKey(u => u.RoleId)
                 .OnDelete(DeleteBehavior.Restrict)
-                .HasConstraintName("FK_Users_UserRoles");
+                .HasConstraintName("FK_User_UserRoles");
 
             // Navigation properties
             builder.HasMany(u => u.OtpRecords)

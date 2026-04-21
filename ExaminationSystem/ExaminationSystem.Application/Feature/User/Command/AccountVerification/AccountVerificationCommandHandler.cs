@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ExaminationSystem.Application.Feature.User.Command.AccountVerification
+namespace ExaminationSystem.Application.Feature.Users.Command.AccountVerification
 {
     public class AccountVerificationCommandHandler(
         IGenericRepository<OtpRecord> otpRepo ,

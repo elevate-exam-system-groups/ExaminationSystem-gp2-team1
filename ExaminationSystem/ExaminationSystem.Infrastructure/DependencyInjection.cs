@@ -8,6 +8,7 @@ using ExaminationSystem.Infrastructure.Identity;
 using ExaminationSystem.Infrastructure.Repo;
 using ExaminationSystem.Infrastructure.Services.Notification;
 using ExaminationSystem.Infrastructure.Services.Otp;
+using ExaminationSystem.Infrastructure.Services.Token;
 using Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -55,10 +56,11 @@ namespace ExaminationSystem.Infrastructure
             #endregion
 
             services.Configure<SmtpSettings>(configuration.GetSection("SmtpSettings"));
+            services.Configure<JwtSettings>(configuration.GetSection("JWt"));
             
             services.AddScoped<INotificationService, NotificationService>();    
-            services.AddScoped<IUserService, UserService>();    
-            
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ITokenService, TokenService>();
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 

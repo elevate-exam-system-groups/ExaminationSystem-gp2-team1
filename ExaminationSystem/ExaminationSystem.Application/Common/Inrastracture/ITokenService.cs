@@ -1,6 +1,6 @@
 
 
-using ExaminationSystem.Application.Feature.User;
+using ExaminationSystem.Application.Feature.Users;
 using ExaminationSystem.Domin.Common.Result;
 using ExaminationSystem.Entities;
 

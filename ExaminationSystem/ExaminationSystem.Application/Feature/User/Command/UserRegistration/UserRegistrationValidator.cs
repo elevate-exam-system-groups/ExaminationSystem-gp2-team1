@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ExaminationSystem.Application.Feature.User.Commond.UserRegistration
+namespace ExaminationSystem.Application.Feature.Users.Commond.UserRegistration
 {
     public sealed class UserRegistrationValidator : AbstractValidator<UserRegistrationCommand>
     {

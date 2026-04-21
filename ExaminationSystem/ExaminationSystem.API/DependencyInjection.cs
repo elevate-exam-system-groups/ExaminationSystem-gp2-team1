@@ -1,5 +1,6 @@
 ﻿using ExaminationSystem.API.Middleware;
 using ExaminationSystem.Application.Common.Models;
+using ExaminationSystem.Application.Feature.Users.Mapping;
 using ExaminationSystem.Infrastructure._Data.Context;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.RateLimiting;
@@ -21,6 +22,7 @@ namespace ExaminationSystem.API
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(connectionString));
 
+            services.AddAutoMapper(typeof(UserMappingProfile).Assembly);
 
             return services;
         }
@@ -91,7 +93,7 @@ namespace ExaminationSystem.API
 
 
             // 6. Rate limiting (before authentication to protect auth endpoints)
-            app.UseRateLimiter();
+            //app.UseRateLimiter();
 
             // 7. Authentication (must come before authorization)
             app.UseAuthentication();

@@ -3,6 +3,7 @@ using ExaminationSystem.Application.Common.Models;
 using ExaminationSystem.Domin.Common.Result;
 using ExaminationSystem.Domin.Contracts;
 using ExaminationSystem.Domin.Entities.Enums;
+using ExaminationSystem.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -16,7 +17,8 @@ public sealed class VerifyOtpCommandHandler(
     IRateLimiterService rateLimiter,
     IUnitOfWork unitOfWork,
     IOptions<OtpSettings> otpOptions,
-    ILogger<VerifyOtpCommandHandler> logger
+    ILogger<VerifyOtpCommandHandler> logger,
+    IGenericRepository<User> _userRepo
 ) : IRequestHandler<VerifyOtpCommand, Result<bool>>
 {
     private readonly OtpSettings _settings = otpOptions.Value;
@@ -83,6 +85,7 @@ public sealed class VerifyOtpCommandHandler(
             {
                 user.Status = AccountStatus.active;
                 user.IsEmailVerified = true;
+                _userRepo.Update(user);
                 await unitOfWork.SaveChangesAsync(cancellationToken);
 
                 logger.LogInformation(

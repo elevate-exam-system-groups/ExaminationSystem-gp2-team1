@@ -3,10 +3,10 @@ using ExaminationSystem.Application.Common.Models;
 using ExaminationSystem.Application.Feature.Otp.Commands.RequestOtp;
 using ExaminationSystem.Application.Feature.Otp.Commands.ResendOtp;
 using ExaminationSystem.Application.Feature.Otp.Commands.VerifyOtp;
-using ExaminationSystem.Application.Feature.User.Command.AccountVerification;
-using ExaminationSystem.Application.Feature.User.Command.Login;
-using ExaminationSystem.Application.Feature.User.Command.UserRegistration;
-using ExaminationSystem.Application.Feature.User.Commond.UserRegistration;
+using ExaminationSystem.Application.Feature.Users.Command.AccountVerification;
+using ExaminationSystem.Application.Feature.Users.Command.Login;
+using ExaminationSystem.Application.Feature.Users.Command.UserRegistration;
+using ExaminationSystem.Application.Feature.Users.Commond.UserRegistration;
 
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -16,8 +16,6 @@ namespace ExaminationSystem.API.Controllers
 {
     public class AuthController(ISender mediator , IHttpContextAccessor httpContextAccessor) : ApiController
     {
-        private IHttpContextAccessor httpContextAccessor;
-
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserRegistrationRequest request, [FromServices] LinkGenerator linkGenerator, CancellationToken ct)
         {

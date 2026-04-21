@@ -16,7 +16,7 @@ namespace Infrastructure.Services
 {
     public class NotificationService(IOptions<SmtpSettings> smtpSettings) : INotificationService
     {
-        private readonly SmtpSettings _smtpSettings;
+        private readonly SmtpSettings _smtpSettings = smtpSettings.Value; 
 
         public async Task SendEmailAsync(
          string to,

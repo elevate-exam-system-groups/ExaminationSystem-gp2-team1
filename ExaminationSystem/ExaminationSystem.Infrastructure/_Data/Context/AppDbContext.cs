@@ -1,4 +1,6 @@
-﻿using ExaminationSystem.Entities;
+﻿using ExaminationSystem.Domin.Entities;
+using ExaminationSystem.Domin.Entities;
+using ExaminationSystem.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;

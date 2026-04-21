@@ -1,4 +1,4 @@
-﻿namespace ExaminationSystem.Application.Feature.User.Dto
+﻿namespace ExaminationSystem.Application.Feature.Users.Dto
 {
     internal class UserLoginDto
     {

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ExaminationSystem.Application.Feature.User.Command.Login
+namespace ExaminationSystem.Application.Feature.Users.Command.Login
 {
     public class LoginCommandValidation : AbstractValidator<LoginCommand>
     {

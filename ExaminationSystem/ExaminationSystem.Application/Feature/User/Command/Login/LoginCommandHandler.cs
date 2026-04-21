@@ -1,17 +1,19 @@
 ﻿using ExaminationSystem.Application.Common.Interfaces;
 using ExaminationSystem.Domin.Common.Result;
 using ExaminationSystem.Domin.Contracts;
+using ExaminationSystem.Domin.Entities;
+using ExaminationSystem.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using ExaminationSystem.Application.Feature.User.Dto;
+using ExaminationSystem.Application.Feature.Users.Dto;
 
-namespace ExaminationSystem.Application.Feature.User.Command.Login
+namespace ExaminationSystem.Application.Feature.Users.Command.Login
 {
-    public sealed class LoginCommandHandler(IGenericRepository<Entities.User> _repo,
+    public sealed class LoginCommandHandler(IGenericRepository<global::ExaminationSystem.Entities.User> _repo,
         ITokenService _tokenService) : IRequestHandler<LoginCommand, Result<TokenResponse>>
     {
 

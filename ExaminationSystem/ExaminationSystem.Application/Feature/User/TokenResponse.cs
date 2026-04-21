@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ExaminationSystem.Application.Feature.User;
+namespace ExaminationSystem.Application.Feature.Users;
  public class TokenResponse
     {
         public string? AccessToken { get; set; }

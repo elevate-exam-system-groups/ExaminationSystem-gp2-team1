@@ -21,7 +21,8 @@ namespace ExaminationSystem.Infrastructure._Data.Configurations
 
             builder.Property(q => q.PassScore)
                 .IsRequired()
-                .HasDefaultValue(60);
+                .HasDefaultValue(60)
+                .HasPrecision(5, 2);
      
 
             builder.Property(q => q.Instructions)

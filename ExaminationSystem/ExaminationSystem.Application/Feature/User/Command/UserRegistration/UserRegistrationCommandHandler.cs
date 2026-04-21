@@ -1,27 +1,28 @@
 ﻿using AutoMapper;
 using BCrypt.Net;
-using ExaminationSystem.Application.Feature.User.Commond.UserRegistration;
-using ExaminationSystem.Application.Feature.User.Dto;
+using ExaminationSystem.Application.Feature.Users.Commond.UserRegistration;
+using ExaminationSystem.Application.Feature.Users.Dto;
 using ExaminationSystem.Domin.Common.Result;
 using ExaminationSystem.Domin.Contracts;
+using ExaminationSystem.Domin.Entities;
 using ExaminationSystem.Domin.Entities.Enums;
 using ExaminationSystem.Entities;
 using MediatR;
 using Microsoft.Extensions.Logging;
 
-namespace ExaminationSystem.Application.Feature.User.Command.UserRegistration
+namespace ExaminationSystem.Application.Feature.Users.Command.UserRegistration
 {
     public sealed class UserRegistrationCommandHandler
         : IRequestHandler<UserRegistrationCommand, Result<UserResponseDto>>
     {
-        private readonly IGenericRepository<Entities.User> _userRepository;
+        private readonly IGenericRepository<global::ExaminationSystem.Entities.User> _userRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly IMediator _mediator;
         private readonly ILogger<UserRegistrationCommandHandler> _logger;
 
         public UserRegistrationCommandHandler(
-            IGenericRepository<Entities.User> userRepository,
+            IGenericRepository<global::ExaminationSystem.Entities.User> userRepository,
             IUnitOfWork unitOfWork,
             IMapper mapper,
             IMediator mediator,
@@ -50,7 +51,7 @@ namespace ExaminationSystem.Application.Feature.User.Command.UserRegistration
                     new Error(ErrorCode.EmailIsAlreadyUsed, "Email already exists."));
             }
 
-            var user = new Entities.User
+            var user = new global::ExaminationSystem.Entities.User
             {
                 FirstName = request.FirstName,
                 LastName = request.LastName,
@@ -59,7 +60,7 @@ namespace ExaminationSystem.Application.Feature.User.Command.UserRegistration
                 Status = AccountStatus.pending,
             };
 
-            user.Roles.Add(new UserRole { RoleId = UserRoleCode.Student });
+            user.Roles.Add(new UserRole { RoleId = new Guid("10000000-0000-0000-0000-000000000001") });
 
             _userRepository.Add(user);
 
@@ -77,7 +78,7 @@ namespace ExaminationSystem.Application.Feature.User.Command.UserRegistration
 
             await _mediator.Publish(
                 new UserRegisteredEvent(user.Email),
-                cancellationToken);
+                CancellationToken.None);
 
             _logger.LogInformation("UserRegisteredEvent published for {Email}", user.Email);
 

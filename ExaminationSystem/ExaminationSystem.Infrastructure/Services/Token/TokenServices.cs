@@ -1,6 +1,6 @@
 ﻿using ExaminationSystem.Application.Common.Interfaces;
 using ExaminationSystem.Application.Common.Models;
-using ExaminationSystem.Application.Feature.User;
+using ExaminationSystem.Application.Feature.Users;
 using ExaminationSystem.Domin.Common.Result;
 using ExaminationSystem.Domin.Contracts;
 using ExaminationSystem.Entities;
@@ -19,12 +19,10 @@ using System.Text;
 namespace ExaminationSystem.Infrastructure.Services.Token
 {
     public class TokenService(IOptions<JwtSettings> jwtSettings,
-        IGenericRepository<RefreshToken> refreshRepository,
-        IUnitOfWork unitOfWork) : ITokenService
+        IGenericRepository<RefreshToken> _refreshRepository,
+        IUnitOfWork _unitOfWork) : ITokenService
     {
-        private readonly IOptions<JwtSettings> _jwtSettings = jwtSettings;
-        private readonly IGenericRepository<RefreshToken> _refreshRepository = refreshRepository;
-        private readonly IUnitOfWork _unitOfWork = unitOfWork;
+       private readonly JwtSettings _jwtSettings = jwtSettings.Value;
         public async Task<Result<TokenResponse>> GenerateJwtTokenAsync(Guid id, string email, List<string> roles, CancellationToken ct = default)
         {
             var tokenResult = await CreateAsync(id, email, roles, ct);
@@ -39,7 +37,7 @@ namespace ExaminationSystem.Infrastructure.Services.Token
         private async Task<Result<TokenResponse>> CreateAsync(Guid id, string email, List<string> roles, CancellationToken ct = default)
         {
 
-            var key = Encoding.ASCII.GetBytes(_jwtSettings.Value.Key);
+            var key = Encoding.ASCII.GetBytes(_jwtSettings.Key);
             var creds = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256);
 
             var Claims = new List<Claim>
@@ -55,9 +53,9 @@ namespace ExaminationSystem.Infrastructure.Services.Token
             var token = new SecurityTokenDescriptor
             {
 
-                Issuer = _jwtSettings.Value.Issuer,
-                Audience = _jwtSettings.Value.Audience,
-                Expires = DateTime.Now.AddMinutes(_jwtSettings.Value.DurationInMinutes),
+                Issuer = _jwtSettings.Issuer,
+                Audience = _jwtSettings.Audience,
+                Expires = DateTime.Now.AddMinutes(_jwtSettings.DurationInMinutes),
                 Subject = new ClaimsIdentity(Claims),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256)
 
