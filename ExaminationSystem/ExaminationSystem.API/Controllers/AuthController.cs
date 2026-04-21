@@ -49,37 +49,7 @@ namespace ExaminationSystem.API.Controllers
                 Problem);
         }
 
-        /*     [HttpPost("verify-otp/{id:guid}")]
-             public async Task<IActionResult> AccountVerification([FromRoute] Guid id, [FromBody] int otp)
-             {
-                 var command = new AccountVerificationCommand(id, otp);
-                 var result = await mediator.Send(command);
-                 return Ok();
-                 *//*
-                             return result.Match<IActionResult>(
-                                 response => Ok(new { Message = "Account verified successfully" }),
-                                 Problem);*//*
-             }*/
-
-        /*  [HttpPost("request-otp")]
-          [ProducesResponseType(typeof(object), StatusCodes.Status200OK)]
-          [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
-          [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status429TooManyRequests)]
-          public async Task<IActionResult> RequestOtp(
-              [FromBody] RequestOtpRequest request,
-              CancellationToken ct)
-          {
-              var clientIp = httpContextAccessor.HttpContext?.Connection.RemoteIpAddress?.ToString();
-
-              var command = new RequestOtpCommand(request.Identifier, request.Purpose, clientIp);
-              var result = await mediator.Send(command, ct);
-
-              return result.Match<IActionResult>(
-                  message => Ok(new { Success = true, Message = message }),
-                  Problem);
-          }*/
-
-
+     
         [HttpPost("verify-otp")]
         [ProducesResponseType(typeof(object), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
