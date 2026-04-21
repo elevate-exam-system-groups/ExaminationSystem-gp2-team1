@@ -7,7 +7,7 @@ using System.Text;
 namespace ExaminationSystem.Application.Feature.Users.Command.ResetPassword;
 
     public sealed record ResetPasswordCommand(string Email,
-        string token,
+        string Token,
         string NewPassword,
         string ConfirmPassword) : IRequest<Result<string>>;
    

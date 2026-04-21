@@ -61,7 +61,7 @@ app.UseSwaggerUI(options =>
     options.SwaggerEndpoint("/swagger/v1/swagger.json", "Examination System API v1");
     options.RoutePrefix = "swagger"; // UI at /swagger
 });
-app.UseCoreMiddlewares(builder.Configuration);
+app.UseCoreMiddlewares();
 
 app.MapControllers();
 

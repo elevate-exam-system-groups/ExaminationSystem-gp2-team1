@@ -1,4 +1,5 @@
 ﻿using Application.common.Models;
+using ExaminationSystem.Application.Common.Inrastracture;
 using ExaminationSystem.Application.Common.Interfaces;
 using ExaminationSystem.Application.Common.Models;
 using ExaminationSystem.Domin.Contracts;
@@ -53,6 +54,7 @@ namespace ExaminationSystem.Infrastructure
             services.Configure<OtpSettings>(configuration.GetSection("OtpSettings"));
             services.AddScoped<IOtpService, OtpService>();
             services.AddScoped<IRateLimiterService, RateLimiterService>();
+            services.AddScoped<IResetTokenService, ResetTokenService>();
             #endregion
 
             services.Configure<SmtpSettings>(configuration.GetSection("SmtpSettings"));

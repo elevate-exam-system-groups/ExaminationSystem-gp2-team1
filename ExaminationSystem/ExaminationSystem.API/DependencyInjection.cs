@@ -23,7 +23,8 @@ namespace ExaminationSystem.API
                 options.UseSqlServer(connectionString));
 
             services.AddAutoMapper(typeof(UserMappingProfile).Assembly);
-
+            services.AddAuthentictaion(configuration)
+                .AddAppRateLimiting();
             return services;
         }
         public static IServiceCollection AddAuthentictaion(this IServiceCollection services, IConfiguration configuration)
@@ -76,7 +77,7 @@ namespace ExaminationSystem.API
 
 
 
-        public static IApplicationBuilder UseCoreMiddlewares(this IApplicationBuilder app, IConfiguration configuration)
+        public static IApplicationBuilder UseCoreMiddlewares(this IApplicationBuilder app)
         {
             // 1. Exception handling should be FIRST to catch all errors
             app.UseMiddleware<GlobalExceptionHandlingMiddleware>();

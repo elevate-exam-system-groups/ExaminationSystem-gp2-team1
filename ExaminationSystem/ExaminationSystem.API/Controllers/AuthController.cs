@@ -6,6 +6,7 @@ using ExaminationSystem.Application.Feature.Otp.Commands.VerifyOtp;
 using ExaminationSystem.Application.Feature.Users.Command.AccountVerification;
 using ExaminationSystem.Application.Feature.Users.Command.ForgetPassword;
 using ExaminationSystem.Application.Feature.Users.Command.Login;
+using ExaminationSystem.Application.Feature.Users.Command.ResetPassword;
 using ExaminationSystem.Application.Feature.Users.Command.UserRegistration;
 using ExaminationSystem.Application.Feature.Users.Commond.UserRegistration;
 
@@ -16,7 +17,7 @@ using static ExaminationSystem.Contracts.Requests.UserUserRequests.UserRequests;
 
 namespace ExaminationSystem.API.Controllers
 {
-    public class AuthController(ISender mediator, IHttpContextAccessor httpContextAccessor , LinkGenerator linkGenerator) : ApiController
+    public class AuthController(ISender mediator, IHttpContextAccessor httpContextAccessor, LinkGenerator linkGenerator) : ApiController
     {
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserRegistrationRequest request, CancellationToken ct)
@@ -48,37 +49,7 @@ namespace ExaminationSystem.API.Controllers
                 Problem);
         }
 
-        /*     [HttpPost("verify-otp/{id:guid}")]
-             public async Task<IActionResult> AccountVerification([FromRoute] Guid id, [FromBody] int otp)
-             {
-                 var command = new AccountVerificationCommand(id, otp);
-                 var result = await mediator.Send(command);
-                 return Ok();
-                 *//*
-                             return result.Match<IActionResult>(
-                                 response => Ok(new { Message = "Account verified successfully" }),
-                                 Problem);*//*
-             }*/
-
-        /*  [HttpPost("request-otp")]
-          [ProducesResponseType(typeof(object), StatusCodes.Status200OK)]
-          [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
-          [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status429TooManyRequests)]
-          public async Task<IActionResult> RequestOtp(
-              [FromBody] RequestOtpRequest request,
-              CancellationToken ct)
-          {
-              var clientIp = httpContextAccessor.HttpContext?.Connection.RemoteIpAddress?.ToString();
-
-              var command = new RequestOtpCommand(request.Identifier, request.Purpose, clientIp);
-              var result = await mediator.Send(command, ct);
-
-              return result.Match<IActionResult>(
-                  message => Ok(new { Success = true, Message = message }),
-                  Problem);
-          }*/
-
-
+     
         [HttpPost("verify-otp")]
         [ProducesResponseType(typeof(object), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
@@ -147,20 +118,21 @@ namespace ExaminationSystem.API.Controllers
 
         [HttpPost("reset-password/{token}&&{email}")]
         public async Task<IActionResult> ResetPassword(
-            [FromRoute] string token,
-            [FromRoute] string email,
+            [FromQuery] string token,
+            [FromQuery] string email,
             [FromBody] ResetPasswordRequest request,
             CancellationToken ct)
         {
-            var command = new ResetPasswordCommand(email, token, request.NewPassword , request.ConfirmPassword);
+            var command = new ResetPasswordCommand(email, token, request.NewPassword, request.ConfirmPassword);
             var result = await mediator.Send(command, ct);
             return result.Match<IActionResult>(
                 message => Ok(new { Success = true, Message = message }),
                 Problem
-                
+
                 );
 
 
         }
 
     }
+}
