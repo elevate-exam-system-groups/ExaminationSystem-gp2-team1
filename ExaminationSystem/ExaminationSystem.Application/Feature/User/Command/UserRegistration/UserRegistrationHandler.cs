@@ -12,8 +12,8 @@ using BCrypt.Net;
 using ExaminationSystem.Domin.Comman.Result;
 namespace ExaminationSystem.Application.Feature.User.Command.UserRegistration
 {
-    public class UserRegistrationHandler(IUserService userService ,
-        IGenericRepository<Entities.User> userRepository ,
+    public class UserRegistrationHandler(IUserService userService,
+        IGenericRepository<Entities.User> userRepository,
         IUnitOfWork unitOfWork)
         : IRequestHandler<UserRegistrationCommand, IResult>
     {
@@ -22,11 +22,11 @@ namespace ExaminationSystem.Application.Feature.User.Command.UserRegistration
         private readonly IUnitOfWork unitOfWork;
         public async Task<IResult> Handle(UserRegistrationCommand request, CancellationToken cancellationToken)
         {
-            var roleId =  await _userService.GetRoleIdByNameAsync("Student");
+            var roleId = await _userService.GetRoleIdByNameAsync("Student");
             var existingUser = await _userRepository.ExistsAsync(u => u.Email == request.Email);
             if (existingUser)
-            {        
-              return new Result<Entities.User>(  new Error(ErrorCode.EmailIsAlreadyUsed , "A user with this email already exists."));                           
+            {
+                return new Result<Entities.User>(new Error(ErrorCode.EmailIsAlreadyUsed, "A user with this email already exists."));
             }
             var user = new Entities.User
             {
@@ -36,9 +36,9 @@ namespace ExaminationSystem.Application.Feature.User.Command.UserRegistration
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Password),
                 RoleId = roleId
             };
-            
+
             _userRepository.Add(user);
-            var result =  await unitOfWork.SaveChangesAsync();
+            var result = await unitOfWork.SaveChangesAsync();
             if (result > 0)
             {
                 return new Result<Entities.User>(user);
