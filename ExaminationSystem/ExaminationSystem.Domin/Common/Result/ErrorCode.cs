@@ -10,6 +10,7 @@ namespace ExaminationSystem.Domin.Common.Result
         EmailIsAlreadyUsed,
         RegistrationFailed,
         NoError = 0,
+        Unauthorized,
         /// for Start Quiz 
         ///   Limit reached: 403 
         ///   Student already has an in-progress attempt for this quiz
