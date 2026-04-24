@@ -8,10 +8,11 @@ using ExaminationSystem.Domin.Contracts;
 using ExaminationSystem.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace ExaminationSystem.Application.Feature.Analytics.Orcherstrator
 {
-    public class GetAnalyticsOrcherstratorHandler(IMediator _mediator) : IRequestHandler<GetAnalyticsOrcherstrator, RequestResult<AnalyticsDto>>
+    public class GetAnalyticsOrcherstratorHandler(IMediator _mediator, IMemoryCache _cache) : IRequestHandler<GetAnalyticsOrcherstrator, RequestResult<AnalyticsDto>>
     {
         public async Task<RequestResult<AnalyticsDto>> Handle(GetAnalyticsOrcherstrator request, CancellationToken cancellationToken)
         {
@@ -34,6 +35,15 @@ namespace ExaminationSystem.Application.Feature.Analytics.Orcherstrator
 
             //var topFailedQuestions = await _mediator.Send(new GetTopFailedQuestionsQuery(request.From,request.To));
 
+            ///
+            /// using cache to store result
+            ///
+            var cacheKey = $"analytics:{request.From}:{request.To}:{request.DiplomaId}";
+
+            if (_cache.TryGetValue(cacheKey, out AnalyticsDto cachedData))
+            {
+                return RequestResult<AnalyticsDto>.Sucess(cachedData);
+            }
 
 
             ///
@@ -48,13 +58,24 @@ namespace ExaminationSystem.Application.Feature.Analytics.Orcherstrator
             await Task.WhenAll(passRateTask, avgScoreTask, attemptsTask, failedTask);
 
 
-            return RequestResult<AnalyticsDto>.Sucess(new AnalyticsDto
+            var result = new AnalyticsDto
             {
                 PassRateByQuiz = passRateTask.Result.Data,
                 AvgScoreByDiploma = avgScoreTask.Result.Data,
                 AttemptsOverTime = attemptsTask.Result.Data,
                 TopFailedQuestions = failedTask.Result.Data
-            });
+            };
+
+
+            var cacheOptions = new MemoryCacheEntryOptions
+            {
+                AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(10)
+            };
+
+            _cache.Set(cacheKey, result, cacheOptions);
+
+
+            return RequestResult<AnalyticsDto>.Sucess(result);
 
 
         }
