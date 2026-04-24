@@ -39,7 +39,7 @@ namespace ExaminationSystem.Application.Feature.Analytics.Orcherstrator
             /// using cache to store result
             ///
             var cacheKey = $"analytics:from={request.From}:to={request.To}:dip={request.DiplomaId}";
-
+                
             if (_cache.TryGetValue(cacheKey, out AnalyticsDto cachedData))
             {
                 return RequestResult<AnalyticsDto>.Sucess(cachedData);
