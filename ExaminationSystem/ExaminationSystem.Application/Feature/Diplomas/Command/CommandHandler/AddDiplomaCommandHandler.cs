@@ -23,7 +23,6 @@ namespace ExaminationSystem.Application.Feature.Diplomas.Command.CommandHandler
             {
                 Title = request.Title,
                 Description = request.Description,
-                IsPublished = request.IsPublished
             };
             
              _diplomaRepository.Add(diploma);
