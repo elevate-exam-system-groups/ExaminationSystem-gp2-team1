@@ -12,6 +12,6 @@ namespace ExaminationSystem.Application.Feature.Users.Commond.UserRegistration
         string LastName,
         string Email,
         string Password
-    ):IRequest<Result<UserResponseDto>>;
-    
+    ) : IRequest<Result<UserResponseDto>>;
+
 }
