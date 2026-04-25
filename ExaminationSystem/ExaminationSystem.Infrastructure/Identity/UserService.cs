@@ -1,5 +1,6 @@
 ﻿using ExaminationSystem.Application.Common.Interfaces;
 using ExaminationSystem.Domin.Contracts;
+using ExaminationSystem.Domin.Entities;
 using ExaminationSystem.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -15,13 +16,13 @@ namespace ExaminationSystem.Infrastructure.Identity
         private readonly IGenericRepository<UserRole> _roleRepository;
         private readonly IHttpContextAccessor _httpContextAccessor;
       
-        public async Task<Guid> GetRoleIdByNameAsync(string roleName)
+        /*public async Task<Guid> GetRoleIdByNameAsync(string roleName)
         {
             return await _roleRepository.GetAll()
                 .Where(r => r.Name == roleName)
                 .Select(r => r.Id)
                 .FirstOrDefaultAsync<Guid>();
-        }
+        }*/
 
         public Guid? GetUserId()
         {
@@ -34,10 +35,13 @@ namespace ExaminationSystem.Infrastructure.Identity
 
             return currentUserId;
         }
-        public string GetUserRole()
+        public List<string> GetUserRole()
         {
-            var currentUserIdString = httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.Role)?.Value;
-            return currentUserIdString;
+            var roles = _httpContextAccessor.HttpContext?.User
+                .FindAll(ClaimTypes.Role)
+                .Select(c => c.Value)
+                .ToList() ?? new List<string>();
+            return roles;
         }
     }
 }

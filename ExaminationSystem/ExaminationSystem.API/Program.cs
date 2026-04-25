@@ -1,4 +1,5 @@
 using ExaminationSystem.API;
+using ExaminationSystem.API.Middleware;
 using ExaminationSystem.Application;
 using ExaminationSystem.Domin.Contracts;
 using ExaminationSystem.Infrastructure;
@@ -87,12 +88,8 @@ app.UseSwaggerUI(options =>
     Options.SwaggerEndpoint("/swagger/v1/swagger.json", "Examination System API v1");
     Options.RoutePrefix = "swagger"; // UI at /swagger*/
 });
-
-app.UseHttpsRedirection();
-
-app.UseAuthentication();
-app.UseAuthorization();
+app.UseCoreMiddlewares();
 
 app.MapControllers();
-/*app.UseMiddleware<ExceptionHandlingMiddleware>();*/
+
 app.Run();

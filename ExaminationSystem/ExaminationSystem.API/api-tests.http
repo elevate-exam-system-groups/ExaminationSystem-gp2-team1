@@ -1,0 +1,79 @@
+@hostname = https://localhost:7103
+@email = www.mosaleh@gmail.com
+@password = StrongPassword123!
+//@HostAddress = {{api_HostAddress}}
+###
+# 1. Register a new user
+# This will create a new user with the email and password defined above.
+POST {{hostname}}/api/Auth/register
+Content-Type: application/json
+
+{
+  "firstName": "Test",
+  "lastName": "User",
+  "email": "{{email}}",
+  "password": "{{password}}",
+  "confirmPassword": "{{password}}"
+}
+
+###
+# 2. Request OTP for Email Verification
+# After registering, you would typically request an OTP to verify the user's email.
+POST {{hostname}}/api/Otp/request
+Content-Type: application/json
+
+{
+  "email": "{{email}}",
+  "purpose": "Register"
+}
+
+###
+# 3. Resend OTP
+# If the first OTP expires or is not received, you can use this endpoint.
+POST {{hostname}}/api/Otp/resend
+Content-Type: application/json
+
+{
+  "email": "{{email}}"
+}
+
+
+###
+# 4. Login with the user
+# NOTE: This will only work if the user's account is 'active'. 
+# The default status on registration is 'pending'. You may need to manually 
+# update the user's status in the database to 'active' to test this successfully.
+POST {{hostname}}/api/Auth/login
+Content-Type: application/json
+
+{
+  "email": "{{email}}",
+  "password": "{{password}}"
+}
+
+###
+# 5. Register a new user (Alternative Test)
+# This is an alternative test for user registration using a different endpoint.
+POST {{api_HostAddress}}/api/Auth/register
+Content-Type: application/json
+
+{
+  "firstName": "test",
+  "lastName": "user",
+  "email": "test.user@example.com",
+  "password": "Password123!"
+}
+
+###
+# 6. Verify OTP for registration (Manual Step Required)
+# This request verifies the OTP for the user registration done in the previous step.
+# NOTE: You must manually replace `123456` with the actual OTP received on the registered email.
+POST {{api_HostAddress}}/api/Auth/verify-otp
+Content-Type: application/json
+{
+  "email": "{{email}}",
+  "purpose": "Register"
+  "otp": "414724"
+}
+
+

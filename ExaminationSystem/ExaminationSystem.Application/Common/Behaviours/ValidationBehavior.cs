@@ -38,9 +38,5 @@ public class ValidationBehavior<TRequest, TResponse>(IValidator<TRequest>? valid
 
         return (dynamic)errors;
     }
-
-    public Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
-    {
-        throw new NotImplementedException();
-    }
+   
 }

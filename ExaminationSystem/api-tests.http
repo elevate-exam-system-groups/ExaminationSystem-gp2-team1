@@ -1,0 +1,52 @@
+@hostname = https://localhost:7195
+@email = user-{{$randomInt}}@example.com
+@password = StrongPassword123!
+
+###
+# 1. Register a new user
+# This will create a new user with the email and password defined above.
+POST {{hostname}}/api/Users/register
+Content-Type: application/json
+
+{
+  "firstName": "Test",
+  "lastName": "User",
+  "email": "{{email}}",
+  "password": "{{password}}",
+  "confirmPassword": "{{password}}"
+}
+
+###
+# 2. Request OTP for Email Verification
+# After registering, you would typically request an OTP to verify the user's email.
+POST {{hostname}}/api/Otp/request
+Content-Type: application/json
+
+{
+  "email": "{{email}}",
+  "purpose": "Register"
+}
+
+###
+# 3. Resend OTP
+# If the first OTP expires or is not received, you can use this endpoint.
+POST {{hostname}}/api/Otp/resend
+Content-Type: application/json
+
+{
+  "email": "{{email}}"
+}
+
+
+###
+# 4. Login with the user
+# NOTE: This will only work if the user's account is 'active'. 
+# The default status on registration is 'pending'. You may need to manually 
+# update the user's status in the database to 'active' to test this successfully.
+POST {{hostname}}/api/Auth/login
+Content-Type: application/json
+
+{
+  "email": "{{email}}",
+  "password": "{{password}}"
+}
