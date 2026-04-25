@@ -22,7 +22,7 @@ namespace ExaminationSystem.Infrastructure.Services.Token
         IGenericRepository<RefreshToken> _refreshRepository,
         IUnitOfWork _unitOfWork) : ITokenService
     {
-       private readonly JwtSettings _jwtSettings = jwtSettings.Value;
+        private readonly JwtSettings _jwtSettings = jwtSettings.Value;
         public async Task<Result<TokenResponse>> GenerateJwtTokenAsync(Guid id, string email, List<string> roles, CancellationToken ct = default)
         {
             var tokenResult = await CreateAsync(id, email, roles, ct);
@@ -44,7 +44,7 @@ namespace ExaminationSystem.Infrastructure.Services.Token
             {
                 new Claim(ClaimTypes.NameIdentifier, id.ToString()),
                 new Claim(ClaimTypes.Email, email),
-                
+
             };
             foreach (string role in roles)
             {
@@ -55,7 +55,7 @@ namespace ExaminationSystem.Infrastructure.Services.Token
 
                 Issuer = _jwtSettings.Issuer,
                 Audience = _jwtSettings.Audience,
-                Expires = DateTime.Now.AddMinutes(_jwtSettings.DurationInMinutes),
+                Expires = DateTime.UtcNow.AddMinutes(_jwtSettings.DurationInMinutes),
                 Subject = new ClaimsIdentity(Claims),
                 SigningCredentials = creds
 
@@ -65,7 +65,7 @@ namespace ExaminationSystem.Infrastructure.Services.Token
 
             await _refreshRepository
                   .Find(rt => rt.UserId == id && rt.ExpiresAt < DateTime.UtcNow)
-                  .ExecuteDeleteAsync();
+                  .ExecuteDeleteAsync(ct);
 
 
             var rawToken = GenerateRefreshToken();
@@ -79,7 +79,7 @@ namespace ExaminationSystem.Infrastructure.Services.Token
 
             _refreshRepository.Add(refreshToken);
 
-            var result = await _unitOfWork.SaveChangesAsync();
+            var result = await _unitOfWork.SaveChangesAsync(ct);
 
             if (result == 0)
             {
@@ -89,7 +89,7 @@ namespace ExaminationSystem.Infrastructure.Services.Token
             var tokenResponse = new TokenResponse
             {
                 AccessToken = new JwtSecurityTokenHandler().WriteToken(securityToken),
-                RefreshToken = refreshToken.TokenHash,
+                RefreshToken = rawToken,
                 ExpiresOnUtc = token.Expires.Value.ToUniversalTime()
             };
 

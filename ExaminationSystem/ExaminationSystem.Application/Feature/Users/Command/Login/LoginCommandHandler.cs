@@ -27,13 +27,16 @@ namespace ExaminationSystem.Application.Feature.Users.Command.Login
                  u.PasswordHash,
                  u.Roles.Select(r => r.Role.Name.ToString()).ToList()
                 ))
-            .FirstOrDefaultAsync(cancellationToken); if (user == null)
+            .FirstOrDefaultAsync(cancellationToken);
+
+            var hashToVerify = user?.PasswordHash
+                ?? "$2a$11$dummyhashXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
+            var passwordValid = BCrypt.Net.BCrypt.Verify(request.Password, hashToVerify);
+
+            if (user == null || !passwordValid)
             {
-                return new Result<TokenResponse>(new Error(ErrorCode.UserNotFound, "User with the provided email does not exist."));
-            }
-            if (!BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
-            {
-                return new Result<TokenResponse>(new Error(ErrorCode.InCorrectPassword, "The email or password is incorrect."));
+                return new Result<TokenResponse>(
+                    new Error(ErrorCode.InCorrectPassword, "Invalid email or password."));
             }
             var role = user.Roles;
 

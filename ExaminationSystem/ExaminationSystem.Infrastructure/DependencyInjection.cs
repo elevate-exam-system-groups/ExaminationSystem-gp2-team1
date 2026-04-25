@@ -7,6 +7,7 @@ using ExaminationSystem.Infrastructure._Data.Context;
 using ExaminationSystem.Infrastructure._UnitOfWork;
 using ExaminationSystem.Infrastructure.Identity;
 using ExaminationSystem.Infrastructure.Repo;
+using ExaminationSystem.Infrastructure.Services;
 using ExaminationSystem.Infrastructure.Services.Notification;
 using ExaminationSystem.Infrastructure.Services.Otp;
 using ExaminationSystem.Infrastructure.Services.Token;
@@ -56,11 +57,11 @@ namespace ExaminationSystem.Infrastructure
             services.AddScoped<IRateLimiterService, RateLimiterService>();
             services.AddScoped<IResetTokenService, ResetTokenService>();
             #endregion
-
+            services.AddScoped<IPasswordResetStore, RedisPasswordResetStore>();
             services.Configure<SmtpSettings>(configuration.GetSection("SmtpSettings"));
             services.Configure<JwtSettings>(configuration.GetSection("JWt"));
-            
-            services.AddScoped<INotificationService, NotificationService>();    
+
+            services.AddScoped<INotificationService, NotificationService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ITokenService, TokenService>();
 
@@ -70,7 +71,7 @@ namespace ExaminationSystem.Infrastructure
 
 
 
-       
+
 
         }
     }

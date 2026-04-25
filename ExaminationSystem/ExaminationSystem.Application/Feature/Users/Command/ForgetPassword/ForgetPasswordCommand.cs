@@ -6,5 +6,5 @@ using System.Text;
 
 namespace ExaminationSystem.Application.Feature.Users.Command.ForgetPassword;
 
-public sealed record ForgetPasswordCommand(string Email , string VerificationUri) : IRequest<Result<string>>;
+public sealed record ForgetPasswordCommand(string Email) : IRequest<Result<string>>;
 

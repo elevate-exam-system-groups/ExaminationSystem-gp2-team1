@@ -6,6 +6,6 @@ namespace ExaminationSystem.Application.Common.Models
 {
     public class AppSettings
     {
-        public string ClientBaseUrl { get; set; }
+        public string FrontendBaseUrl { get; set; } = string.Empty;
     }
 }

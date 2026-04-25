@@ -49,7 +49,7 @@ namespace ExaminationSystem.API.Controllers
                 Problem);
         }
 
-     
+
         [HttpPost("verify-otp")]
         [ProducesResponseType(typeof(object), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status400BadRequest)]
@@ -103,12 +103,7 @@ namespace ExaminationSystem.API.Controllers
             [FromBody] ForgetPasswordRequest request,
             CancellationToken ct)
         {
-            var verificationUri = linkGenerator.GetUriByAction(
-                        HttpContext,
-                        action: nameof(ResetPassword),
-                        controller: "Auth"
-                        );
-            var command = new ForgetPasswordCommand(request.Email, verificationUri);
+            var command = new ForgetPasswordCommand(request.Email);
             var result = await mediator.Send(command, ct);
 
             return result.Match<IActionResult>(

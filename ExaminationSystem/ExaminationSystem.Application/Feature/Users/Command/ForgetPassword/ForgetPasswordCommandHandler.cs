@@ -6,6 +6,7 @@ using ExaminationSystem.Domin.Contracts;
 using ExaminationSystem.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.Options;
 using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
@@ -14,12 +15,12 @@ using System.Collections.Generic;
 namespace ExaminationSystem.Application.Feature.Users.Command.ForgetPassword;
 
 public sealed class ForgetPasswordCommandHandler(IGenericRepository<User> _userRepository,
-    INotificationService _notification , 
+    INotificationService _notification,
     IResetTokenService _resetTokenService,
-    IConnectionMultiplexer _redis
+    IPasswordResetStore _passwordResetStore,
+    IOptions<AppSettings> _appSettings
     ) : IRequestHandler<ForgetPasswordCommand, Result<string>>
 {
-    private readonly IDatabase _database = _redis.GetDatabase();
     public async Task<Result<string>> Handle(ForgetPasswordCommand request, CancellationToken cancellationToken)
     {
         var userExists = await _userRepository.ExistsAsync(u => u.Email == request.Email);
@@ -28,15 +29,14 @@ public sealed class ForgetPasswordCommandHandler(IGenericRepository<User> _userR
             return new Result<string>(new Error(ErrorCode.UserNotFound, "User with the provided email does not exist."));
         }
 
-        
-        var hashedToken = _resetTokenService.HashToken();
-        var key = $"ForgetPasswordToken:{request.Email}";
-        await _database.StringSetAsync(key, hashedToken, TimeSpan.FromHours(1));
 
-        var resetLink = new Link(request.VerificationUri, hashedToken, request.Email);
+        var tokenResult = _resetTokenService.GenerateToken();
+        await _passwordResetStore.SaveAsync(request.Email, tokenResult.HashedToken, cancellationToken);
+        var baseUrl = _appSettings.Value.FrontendBaseUrl;
+        var resetLink = new Link($"{baseUrl}/reset-password", tokenResult.RawToken, request.Email);
         var result = await _notification.SendForgetPasswordEmailAsync(request.Email, resetLink);
 
-        return result.IsSuccess 
+        return result.IsSuccess
             ? new Result<string>("Password reset email sent successfully. Check your email for the reset link.")
             : result;
     }
