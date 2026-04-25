@@ -24,7 +24,7 @@ namespace ExaminationSystem.Domin.Common.Result
 
 
         
-        ExistingAttempt = 409,
+      
         OtpExpired = 410,
         OtpAlreadyUsed = 411,
         OtpInvalid = 412,
