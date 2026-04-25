@@ -11,13 +11,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ExaminationSystem.Application.Feature.Attempts.Query
 {
-    public class GetAttemptByIdQueryHandler(IGenericRepository<QuizAttempt> _quizRepo) : IRequestHandler<GetAttemptByIdQuery, RequestResult<QuizAttemptDTOs>>
+    public class GetAttemptByIdQueryHandler(IGenericRepository<QuizAttempt> _quizRepo) : IRequestHandler<GetAttemptByIdQuery, RequestResult<AttemptQuizDto>>
     {
-        public async Task<RequestResult<QuizAttemptDTOs>> Handle(GetAttemptByIdQuery request, CancellationToken cancellationToken)
+        public async Task<RequestResult<AttemptQuizDto>> Handle(GetAttemptByIdQuery request, CancellationToken cancellationToken)
         {
             var attempt = await _quizRepo.GetAll()
                 .Where(a => a.Id == request.AttemptId)
-                .Select(a => new QuizAttemptDTOs
+                .Select(a => new AttemptQuizDto
                 {
                     QuizId = a.QuizId,
                     StudentId = a.StudentId,
@@ -28,11 +28,11 @@ namespace ExaminationSystem.Application.Feature.Attempts.Query
 
             if (attempt is null) 
             {
-                return RequestResult<QuizAttemptDTOs>.Failure(ErrorCode.NotFound, "Attempt not found");
+                return RequestResult<AttemptQuizDto>.Failure(ErrorCode.NotFound, "Attempt not found");
             }
             else
             {
-                return RequestResult<QuizAttemptDTOs>.Sucess(attempt);
+                return RequestResult<AttemptQuizDto>.Sucess(attempt);
             } 
         }
     }

@@ -5,7 +5,7 @@ using ExaminationSystem.Domin.Entities.Enums;
 
 namespace ExaminationSystem.Application.Common.DTOs.AttemptDTOs
 {
-    public class QuizAttemptDTOs
+    public class AttemptQuizDto
     {
         public Guid QuizId { get; set; }
         public Guid StudentId { get; set; }

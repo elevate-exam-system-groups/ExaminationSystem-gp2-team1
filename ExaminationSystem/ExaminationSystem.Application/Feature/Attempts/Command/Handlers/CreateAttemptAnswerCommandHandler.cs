@@ -7,7 +7,7 @@ using ExaminationSystem.Domin.Contracts;
 using ExaminationSystem.Entities;
 using MediatR;
 
-namespace ExaminationSystem.Application.Feature.Attempts.Command
+namespace ExaminationSystem.Application.Feature.Attempts.Command.Handlers
 {
     public class CreateAttemptAnswerCommandHandler(IGenericRepository<AttemptAnswer> _attemptRepo/*,IUnitOfWork _unitOfWork*/)
         : IRequestHandler<CreateAttemptAnswerCommand, RequestResult<AttemptAnswerDto>>

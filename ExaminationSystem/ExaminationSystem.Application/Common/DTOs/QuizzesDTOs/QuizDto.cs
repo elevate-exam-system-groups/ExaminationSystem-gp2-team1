@@ -14,6 +14,6 @@ namespace ExaminationSystem.Application.Common.DTOs.QuizzesDTOs
         public int DurationMinutes { get; set; }
         public int? MaxAttempts { get; set; }
 
-        public List<QuestionDto> Questions { get; set; } = new();
+        public List<QuestionWithOptionsDto> Questions { get; set; } = new();
     }
 }
