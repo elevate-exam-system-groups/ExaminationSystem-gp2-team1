@@ -52,6 +52,12 @@ namespace ExaminationSystem.API.Controllers
             var result = _mediator.Send(new GetStudentAttemptsQuery(quizId, diplomaId, pageNumber, pageSize));
             return Ok(result);
         }
+        [HttpGet("{attemptId:int}/timer")]
+        public async Task<IActionResult> GetAttemptTimer(Guid attemptId, CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(new GetAttemptTimerQuery(attemptId), cancellationToken);
+            return Ok(result);
+        }
 
     }
 }

@@ -11,6 +11,7 @@ namespace ExaminationSystem.Domin.Common.Result
         RegistrationFailed,
         NoError = 0,
         Unauthorized,
+        badRequest,
         /// for Start Quiz 
         ///   Limit reached: 403 
         ///   Student already has an in-progress attempt for this quiz
@@ -29,5 +30,6 @@ namespace ExaminationSystem.Domin.Common.Result
         PasswordNotMatch = 419,
         NoResetRequest = 420,
         PasswordResetFailed = 421,
+        Gone = 410,
     }
 }
