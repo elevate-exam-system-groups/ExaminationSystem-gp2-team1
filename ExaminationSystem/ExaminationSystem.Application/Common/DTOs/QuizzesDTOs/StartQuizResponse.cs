@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using ExaminationSystem.Application.Common.DTOs.QuestionsDTOs;
 
-namespace ExaminationSystem.Application.DTOs.QuizzesDTOs
+namespace ExaminationSystem.Application.Common.DTOs.QuizzesDTOs
 {
     public class StartQuizResponse
     {

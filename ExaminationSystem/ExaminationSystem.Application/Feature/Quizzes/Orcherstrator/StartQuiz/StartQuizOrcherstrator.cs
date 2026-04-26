@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using ExaminationSystem.Application.DTOs.QuizzesDTOs;
+using ExaminationSystem.Application.Common.DTOs.QuizzesDTOs;
 using ExaminationSystem.Domin.Common.Result;
 using MediatR;
 

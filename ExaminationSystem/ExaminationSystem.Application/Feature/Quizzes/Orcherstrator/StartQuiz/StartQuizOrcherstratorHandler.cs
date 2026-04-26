@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using ExaminationSystem.Application.Common.DTOs.OptionsDTOs;
 using ExaminationSystem.Application.Common.DTOs.QuestionsDTOs;
-using ExaminationSystem.Application.DTOs.QuizzesDTOs;
+using ExaminationSystem.Application.Common.DTOs.QuizzesDTOs;
 using ExaminationSystem.Application.Feature.Quizzes.Query;
 using ExaminationSystem.Domin.Common.Result;
 using ExaminationSystem.Domin.Contracts;
@@ -48,7 +48,7 @@ public class StartQuizOrcherstratorHandler(IMediator _mediator) : IRequestHandle
 
         var attempt = await _mediator.Send(new CreateQuizAttemptCommand(request.UserId,request.QuizId));
 
-        if (attempt.IsSucess) 
+        if (!attempt.IsSucess) 
         {
             return RequestResult<StartQuizResponse>.Failure(ErrorCode.Conflict, "Failed to create quiz attempt");
         }
@@ -76,12 +76,14 @@ public class StartQuizOrcherstratorHandler(IMediator _mediator) : IRequestHandle
             .Select(q => new QuestionWithOptionsDto
             {
                 Id = q.Id,
+                QuestionId = q.QuestionId,
                 Text = q.Text,
                 Options = q.Options
                     .OrderBy(o => Guid.NewGuid())
                     .Select(o => new OptionDto
                     {
                         Id = o.Id,
+                        OptionId = o.OptionId,
                         Text = o.Text
                     }).ToList()
             }).ToList();

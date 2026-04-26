@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using ExaminationSystem.Application.Common.DTOs.OptionsDTOs;
+using ExaminationSystem.Application.Common.DTOs.QuestionsDTOs;
 using ExaminationSystem.Application.Common.DTOs.QuizzesDTOs;
 
 using ExaminationSystem.Domin.Common.Result;
@@ -21,7 +23,23 @@ namespace ExaminationSystem.Application.Feature.Quizzes.Query
                     Id = q.Id,
                     Title = q.Title,
                     DurationMinutes = q.DurationMinutes,
-                    MaxAttempts = q.MaxAttempts
+                    MaxAttempts = q.MaxAttempts,
+                    Questions = q.Questions
+                        .OrderBy(qq => qq.OrderIndex)
+                        .Select(qq => new QuestionWithOptionsDto
+                        {
+                            Id = qq.Id,
+                            QuestionId = qq.Id,
+                            Text = qq.Text,
+                            Options = qq.Options
+                                .OrderBy(o => o.OrderIndex)
+                                .Select(o => new OptionDto
+                                {
+                                    Id = o.Id,
+                                    OptionId = o.Id,
+                                    Text = o.Text
+                                }).ToList()
+                        }).ToList()
 
                 }).FirstOrDefaultAsync(cancellationToken);
 

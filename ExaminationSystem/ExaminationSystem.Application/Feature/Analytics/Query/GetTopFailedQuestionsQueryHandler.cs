@@ -20,11 +20,12 @@ namespace ExaminationSystem.Application.Feature.Analytics.Query
                 (!request.From.HasValue || a.AnsweredAt >= request.From) &&
                 (!request.To.HasValue || a.AnsweredAt <= request.To)
             )
-            .GroupBy(a => a.QuestionId)
+            .GroupBy(a => new { a.QuestionId, a.Question.Text })
             .Select(g => new FailedQuestionDto
             {
-                QuestionId = g.Key,
-                FailureRate = 1 - (g.Count(a => a.IsCorrect) / (double)g.Count())
+                QuestionId = g.Key.QuestionId,
+                QuestionText = g.Key.Text,
+                FailureRate = (1 - (g.Count(a => a.IsCorrect) / (double)g.Count())) * 100
             })
             .Where(x => x.FailureRate > 0.4)
             .OrderByDescending(x => x.FailureRate)

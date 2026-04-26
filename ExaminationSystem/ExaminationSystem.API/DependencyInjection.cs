@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using System.Text;
 using System.Threading.RateLimiting;
 
@@ -18,7 +19,53 @@ namespace ExaminationSystem.API
         {
             string connectionString = configuration.GetConnectionString("DefaultConnection") ??
                 throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+            // Add services to the container.
+            services.AddControllers();
+            services.AddHttpContextAccessor();
+            services.AddMemoryCache();
 
+            // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+
+            services.AddSwaggerGen();
+
+            // Swagger / OpenAPI
+            services.AddEndpointsApiExplorer();
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Examination System API",
+                    Version = "v1",
+                    Description = "API for the Examination System"
+                });
+
+
+                // Add JWT Bearer authentication support in Swagger UI
+                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Description = "Enter your JWT token. Example: eyJhbGci..."
+                });
+
+                options.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {
+            new OpenApiSecurityScheme
+            {
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "Bearer"
+                }
+            },
+            Array.Empty<string>()
+        }
+    });
+            });
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(connectionString));
 
