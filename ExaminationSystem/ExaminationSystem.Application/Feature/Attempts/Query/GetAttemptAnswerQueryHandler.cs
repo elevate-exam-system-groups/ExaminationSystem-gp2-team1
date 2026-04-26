@@ -1,0 +1,46 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using ExaminationSystem.Application.Common.DTOs.AttemptDTOs;
+using ExaminationSystem.Domin.Common.Result;
+using ExaminationSystem.Domin.Contracts;
+using ExaminationSystem.Entities;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
+
+namespace ExaminationSystem.Application.Feature.Attempts.Query
+{
+    public class GetAttemptAnswerQueryHandler (IGenericRepository<AttemptAnswer> _attempRepo): IRequestHandler<GetAttemptAnswerQuery, RequestResult<AttemptAnswerDto>>
+    {
+        public async Task<RequestResult<AttemptAnswerDto>> Handle(GetAttemptAnswerQuery request, CancellationToken cancellationToken)
+        {
+            var existingAnswer = await _attempRepo.GetAll()
+                .Where(a => a.AttemptId == request.AttemptId &&
+                a.QuestionId == request.QuestionId).Select(a => new AttemptAnswer
+                {
+                    Id = a.Id,
+                    AttemptId = a.AttemptId,
+                    QuestionId = a.QuestionId,
+                    SelectedOptionId = a.SelectedOptionId,
+                    AnsweredAt = a.AnsweredAt
+                }).FirstOrDefaultAsync(cancellationToken);
+
+
+            if (existingAnswer == null)
+            {
+                return RequestResult<AttemptAnswerDto>.Sucess(null);
+            }
+
+            var existingAnswerDto = new AttemptAnswerDto
+            {
+                Id = existingAnswer.Id,
+                AttemptId = existingAnswer.AttemptId,
+                QuestionId = existingAnswer.QuestionId,
+                SelectedOptionId = existingAnswer.SelectedOptionId,
+                AnsweredAt = existingAnswer.AnsweredAt
+            };
+
+            return RequestResult<AttemptAnswerDto>.Sucess(existingAnswerDto);
+        }
+    }
+}

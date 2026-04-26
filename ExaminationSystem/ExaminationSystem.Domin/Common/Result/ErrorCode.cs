@@ -1,11 +1,45 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace ExaminationSystem.Domin.Comman.Result
+namespace ExaminationSystem.Domin.Common.Result
 {
     public enum ErrorCode
     {
-        ValidationError
+        ValidationError,
+        EmailIsAlreadyUsed,
+        RegistrationFailed,
+        NoError = 0,
+        Unauthorized,
+        badRequest,
+        /// for Start Quiz 
+        ///   Limit reached: 403 
+        ///   Student already has an in-progress attempt for this quiz
+        LimitReached = 403,
+        NotFound = 404,
+        ExistingAttempt = 405,
+
+        Forbidden = 406,
+        Conflict = 407,
+        Expired = 408,
+        Unprocessable = 409,
+
+
+        
+      
+        OtpExpired = 410,
+        OtpAlreadyUsed = 411,
+        OtpInvalid = 412,
+        OtpRateLimitExceeded = 413,
+        OtpMaxAttemptsExceeded = 414,
+        NotificationFailed = 415,
+        InCorrectPassword = 416,
+        FaildSaveRefreshToken = 417,
+        UserNotFound = 418,
+        PasswordNotMatch = 419,
+        NoResetRequest = 420,
+        PasswordResetFailed = 421,
+        InvalidRefreshToken = 422,
+        Gone = 410,
     }
 }

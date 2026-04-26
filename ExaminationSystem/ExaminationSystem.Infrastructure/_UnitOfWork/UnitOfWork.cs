@@ -1,4 +1,4 @@
-﻿using ExaminationSystem.Domin.Comman;
+﻿using ExaminationSystem.Domin.Common;
 using ExaminationSystem.Domin.Contracts;
 using ExaminationSystem.Infrastructure._Data.Context;
 using ExaminationSystem.Infrastructure.Repo;

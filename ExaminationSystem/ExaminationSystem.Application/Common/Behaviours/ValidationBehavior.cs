@@ -1,8 +1,7 @@
 using MediatR;
 using FluentValidation;
-using ExaminationSystem.Domin.Comman.Result;
 using ExaminationSystem.Domin.Common.Result;
-namespace ExaminationSystem.Application.Comman.Behaviours;
+namespace ExaminationSystem.Application.Common.Behaviours;
 
 
 public class ValidationBehavior<TRequest, TResponse>(IValidator<TRequest>? validator = null)
@@ -39,9 +38,5 @@ public class ValidationBehavior<TRequest, TResponse>(IValidator<TRequest>? valid
 
         return (dynamic)errors;
     }
-
-    public Task<TResponse> Handle(TRequest request, CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
-    {
-        throw new NotImplementedException();
-    }
+   
 }
