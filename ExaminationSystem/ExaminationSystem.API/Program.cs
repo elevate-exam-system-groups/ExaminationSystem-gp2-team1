@@ -6,12 +6,18 @@ using ExaminationSystem.Infrastructure;
 using ExaminationSystem.Infrastructure._UnitOfWork;
 using ExaminationSystem.Infrastructure.Repo;
 using Microsoft.Extensions.Options;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddMemoryCache();
+
+// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+
+builder.Services.AddSwaggerGen();
 
 // Swagger / OpenAPI
 builder.Services.AddEndpointsApiExplorer();
@@ -24,16 +30,7 @@ builder.Services.AddSwaggerGen(options =>
         Description = "API for the Examination System"
     });
 
-builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
-builder.Services.AddSwaggerGen();
 
-
-
-
-
-builder.Services.AddPresentation(builder.Configuration);
     // Add JWT Bearer authentication support in Swagger UI
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
@@ -82,11 +79,8 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI(options =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-/*
-    Options.SwaggerEndpoint("/swagger/v1/swagger.json", "Examination System API v1");
-    Options.RoutePrefix = "swagger"; // UI at /swagger*/
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "Examination System API v1");
+    options.RoutePrefix = "swagger"; // UI at /swagger
 });
 app.UseCoreMiddlewares();
 

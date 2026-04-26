@@ -42,8 +42,15 @@ namespace ExaminationSystem.Infrastructure
             #region Redis & OTP
             // IConnectionMultiplexer — singleton (thread-safe, expensive to create)
             var redisConnection = configuration["Redis:ConnectionString"] ?? "localhost:6379";
-            services.AddSingleton<IConnectionMultiplexer>(
-                ConnectionMultiplexer.Connect(redisConnection));
+
+            services.AddSingleton<IConnectionMultiplexer>(sp =>
+            {
+                var options = ConfigurationOptions.Parse(redisConnection);
+                options.AbortOnConnectFail = false;
+                options.ConnectRetry = 5;
+                options.ConnectTimeout = 5000;
+                return ConnectionMultiplexer.Connect(options);
+            });
 
             // IDistributedCache — used by OtpService for get/set/remove
             services.AddStackExchangeRedisCache(options =>
