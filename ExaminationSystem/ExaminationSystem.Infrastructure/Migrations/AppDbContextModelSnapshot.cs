@@ -22,6 +22,113 @@ namespace ExaminationSystem.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("ExaminationSystem.Domin.Entities.Role", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsAvailable")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasDatabaseName("IX_Roles_Name_Unique");
+
+                    b.ToTable("Roles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("10000000-0000-0000-0000-000000000001"),
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            IsAvailable = true,
+                            IsDeleted = false,
+                            Name = "Student",
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        },
+                        new
+                        {
+                            Id = new Guid("10000000-0000-0000-0000-000000000002"),
+                            CreatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
+                            IsAvailable = true,
+                            IsDeleted = false,
+                            Name = "Admin",
+                            UpdatedAt = new DateTime(2024, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc)
+                        });
+                });
+
+            modelBuilder.Entity("ExaminationSystem.Domin.Entities.UserRole", b =>
+                {
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("RoleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime?>("DeletedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId")
+                        .HasDatabaseName("IX_UserRoles_RoleId");
+
+                    b.HasIndex("UserId")
+                        .HasDatabaseName("IX_UserRoles_UserId");
+
+                    b.ToTable("UserRoles", (string)null);
+                });
+
             modelBuilder.Entity("ExaminationSystem.Entities.AttemptAnswer", b =>
                 {
                     b.Property<Guid>("Id")
@@ -387,7 +494,8 @@ namespace ExaminationSystem.Infrastructure.Migrations
 
                     b.Property<decimal>("PassScore")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("decimal(18,2)")
+                        .HasPrecision(5, 2)
+                        .HasColumnType("decimal(5,2)")
                         .HasDefaultValue(60m);
 
                     b.Property<string>("Title")
@@ -632,9 +740,6 @@ namespace ExaminationSystem.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("RoleId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
@@ -651,71 +756,27 @@ namespace ExaminationSystem.Infrastructure.Migrations
                         .IsUnique()
                         .HasDatabaseName("IX_Users_Email_Unique");
 
-                    b.HasIndex("RoleId");
-
                     b.ToTable("Users", (string)null);
                 });
 
-            modelBuilder.Entity("ExaminationSystem.Entities.UserRole", b =>
+            modelBuilder.Entity("ExaminationSystem.Domin.Entities.UserRole", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.HasOne("ExaminationSystem.Domin.Entities.Role", "Role")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("CreatedBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateTime?>("DeletedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
+                    b.HasOne("ExaminationSystem.Entities.User", "User")
+                        .WithMany("Roles")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasConstraintName("FK_User_UserRoles");
 
-                    b.Property<DateTime?>("UpdatedAt")
-                        .HasColumnType("datetime2");
+                    b.Navigation("Role");
 
-                    b.Property<string>("UpdatedBy")
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique()
-                        .HasDatabaseName("IX_UserRoles_Name_Unique");
-
-                    b.ToTable("UserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("10000000-0000-0000-0000-000000000001"),
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Student role - can take quizzes and view their progress",
-                            IsDeleted = false,
-                            Name = "Student"
-                        },
-                        new
-                        {
-                            Id = new Guid("10000000-0000-0000-0000-000000000002"),
-                            CreatedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Administrator role - full system access",
-                            IsDeleted = false,
-                            Name = "Admin"
-                        });
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("ExaminationSystem.Entities.AttemptAnswer", b =>
@@ -848,16 +909,9 @@ namespace ExaminationSystem.Infrastructure.Migrations
                     b.Navigation("Student");
                 });
 
-            modelBuilder.Entity("ExaminationSystem.Entities.User", b =>
+            modelBuilder.Entity("ExaminationSystem.Domin.Entities.Role", b =>
                 {
-                    b.HasOne("ExaminationSystem.Entities.UserRole", "Role")
-                        .WithMany("Users")
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired()
-                        .HasConstraintName("FK_Users_UserRoles");
-
-                    b.Navigation("Role");
+                    b.Navigation("UserRoles");
                 });
 
             modelBuilder.Entity("ExaminationSystem.Entities.Diploma", b =>
@@ -897,11 +951,8 @@ namespace ExaminationSystem.Infrastructure.Migrations
                     b.Navigation("QuizAttempts");
 
                     b.Navigation("RefreshTokens");
-                });
 
-            modelBuilder.Entity("ExaminationSystem.Entities.UserRole", b =>
-                {
-                    b.Navigation("Users");
+                    b.Navigation("Roles");
                 });
 #pragma warning restore 612, 618
         }

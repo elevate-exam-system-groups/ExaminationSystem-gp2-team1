@@ -361,3 +361,5 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/ExaminationSystem/GEMINI.md
+/ExaminationSystem/ExaminationSystem.API/Middleware/GlobalExceptionHandlingMiddleware.cs
