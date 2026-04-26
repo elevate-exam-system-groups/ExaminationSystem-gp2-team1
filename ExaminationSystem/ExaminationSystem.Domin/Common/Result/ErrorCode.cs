@@ -10,6 +10,8 @@ namespace ExaminationSystem.Domin.Common.Result
         EmailIsAlreadyUsed,
         RegistrationFailed,
         NoError = 0,
+        Unauthorized,
+        badRequest,
         /// for Start Quiz 
         ///   Limit reached: 403 
         ///   Student already has an in-progress attempt for this quiz
@@ -38,5 +40,6 @@ namespace ExaminationSystem.Domin.Common.Result
         NoResetRequest = 420,
         PasswordResetFailed = 421,
         InvalidRefreshToken = 422,
+        Gone = 410,
     }
 }

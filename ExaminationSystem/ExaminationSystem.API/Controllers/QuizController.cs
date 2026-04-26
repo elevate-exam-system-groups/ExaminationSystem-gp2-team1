@@ -1,4 +1,6 @@
-﻿using ExaminationSystem.Application.Feature.Quizzes.Command.StartQuiz;
+﻿using ExaminationSystem.Application.Feature.Quizzes.Commond.StartQuiz;
+using ExaminationSystem.Application.Feature.Quizzes.Query;
+using ExaminationSystem.Application.ViewModels.Quizzes;
 using ExaminationSystem.Domin.Common.Result;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -37,6 +39,24 @@ namespace ExaminationSystem.API.Controllers
             }
 
             return Ok(result.Data);
+        }
+        [HttpGet("GetStudentAttempts")]
+        public async Task<IActionResult> GetStudentAttempts
+        (
+         [FromQuery] Guid? quizId,
+         [FromQuery] Guid? diplomaId,
+         [FromQuery] int pageNumber = 1,
+         [FromQuery] int pageSize = 10
+        )
+        {
+            var result = _mediator.Send(new GetStudentAttemptsQuery(quizId, diplomaId, pageNumber, pageSize));
+            return Ok(result);
+        }
+        [HttpGet("{attemptId:int}/timer")]
+        public async Task<IActionResult> GetAttemptTimer(Guid attemptId, CancellationToken cancellationToken)
+        {
+            var result = await _mediator.Send(new GetAttemptTimerQuery(attemptId), cancellationToken);
+            return Ok(result);
         }
 
     }
