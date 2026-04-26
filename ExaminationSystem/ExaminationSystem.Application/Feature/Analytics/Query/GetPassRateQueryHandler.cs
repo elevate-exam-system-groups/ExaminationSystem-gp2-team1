@@ -17,10 +17,11 @@ namespace ExaminationSystem.Application.Feature.Analytics.Query
             var passRate = await _quizAttemptRepo.GetAll()
                 .Where(a => (!request.From.HasValue || a.StartedAt >= request.From) &&
                             (!request.To.HasValue || a.StartedAt <= request.To))
-                    .GroupBy(a => a.QuizId)
+                    .GroupBy(a => new { a.QuizId, a.Quiz.Title })
                     .Select(g => new PassRateDto
                     {
-                        QuizId = g.Key,
+                        QuizId = g.Key.QuizId,
+                        QuizTitle = g.Key.Title,
                         PassRate = (double)g.Count(a => a.IsPassed == true) / g.Count() * 100
                     }).ToListAsync(cancellationToken);
 

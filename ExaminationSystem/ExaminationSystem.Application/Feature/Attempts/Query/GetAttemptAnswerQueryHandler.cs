@@ -19,22 +19,23 @@ namespace ExaminationSystem.Application.Feature.Attempts.Query
                 a.QuestionId == request.QuestionId).Select(a => new AttemptAnswer
                 {
                     Id = a.Id,
+                    AttemptId = a.AttemptId,
+                    QuestionId = a.QuestionId,
                     SelectedOptionId = a.SelectedOptionId,
-                    AnsweredAt = DateTime.UtcNow
+                    AnsweredAt = a.AnsweredAt
                 }).FirstOrDefaultAsync(cancellationToken);
 
 
-
-            if(existingAnswer == null) 
+            if (existingAnswer == null)
             {
-                return RequestResult<AttemptAnswerDto>.Failure(ErrorCode.NotFound, "Answer not found for the given attempt and question.");
+                return RequestResult<AttemptAnswerDto>.Sucess(null);
             }
 
             var existingAnswerDto = new AttemptAnswerDto
             {
                 Id = existingAnswer.Id,
-                AttemptId = request.AttemptId,
-                QuestionId = request.QuestionId,
+                AttemptId = existingAnswer.AttemptId,
+                QuestionId = existingAnswer.QuestionId,
                 SelectedOptionId = existingAnswer.SelectedOptionId,
                 AnsweredAt = existingAnswer.AnsweredAt
             };

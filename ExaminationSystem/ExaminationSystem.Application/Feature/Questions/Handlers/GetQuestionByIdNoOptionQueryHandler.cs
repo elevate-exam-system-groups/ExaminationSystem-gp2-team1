@@ -19,6 +19,7 @@ namespace ExaminationSystem.Application.Feature.Questions.Handlers
                 .Where(q => q.Id == request.QuestionId)
                 .Select(q => new QuestionWithNoOptionsDto
                 {
+                    Id = q.Id,
                     QuestionId = q.Id,
                     Text = q.Text,
                 }).FirstOrDefaultAsync(cancellationToken);
