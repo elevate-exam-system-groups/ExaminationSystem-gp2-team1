@@ -1,4 +1,4 @@
-﻿using ExaminationSystem.Application.Common.Interfaces;
+using ExaminationSystem.Application.Common.Interfaces;
 using ExaminationSystem.Application.Common.Models;
 using ExaminationSystem.Application.Feature.Users;
 using ExaminationSystem.Domin.Common.Result;
@@ -104,5 +104,53 @@ namespace ExaminationSystem.Infrastructure.Services.Token
                .Replace("=", "");
         }
 
+        public async Task<Result<TokenResponse>> RefreshTokenAsync(string rawRefreshToken, CancellationToken ct = default)
+        {
+            var hash = Convert.ToHexString(
+                SHA256.HashData(Encoding.UTF8.GetBytes(rawRefreshToken)));
+
+            var storedToken = await _refreshRepository
+                .Find(rt => rt.TokenHash == hash && !rt.IsRevoked && rt.ExpiresAt > DateTime.UtcNow)
+                .Include(rt => rt.User)
+                    .ThenInclude(u => u.Roles)
+                        .ThenInclude(r => r.Role)
+                .FirstOrDefaultAsync(ct);
+
+            if (storedToken is null)
+                return new Result<TokenResponse>(
+                    new Error(ErrorCode.InvalidRefreshToken, "Refresh token is invalid, expired, or already revoked."));
+
+            // Rotate: revoke the consumed token before issuing a new pair
+            storedToken.IsRevoked = true;
+            storedToken.RevokedAt = DateTime.UtcNow;
+
+            var roles = storedToken.User.Roles
+                .Select(r => r.Role.Name.ToString())
+                .ToList();
+
+            // CreateAsync saves the revocation + new token atomically
+            return await CreateAsync(storedToken.UserId, storedToken.User.Email, roles, ct);
+        }
+
+        public async Task<Result<bool>> RevokeTokenAsync(string rawRefreshToken, CancellationToken ct = default)
+        {
+            var hash = Convert.ToHexString(
+                SHA256.HashData(Encoding.UTF8.GetBytes(rawRefreshToken)));
+
+            var storedToken = await _refreshRepository
+                .Find(rt => rt.TokenHash == hash && !rt.IsRevoked && rt.ExpiresAt > DateTime.UtcNow)
+                .FirstOrDefaultAsync(ct);
+
+            if (storedToken is null)
+                return new Result<bool>(
+                    new Error(ErrorCode.InvalidRefreshToken, "Refresh token is invalid, expired, or already revoked."));
+
+            storedToken.IsRevoked = true;
+            storedToken.RevokedAt = DateTime.UtcNow;
+
+            await _unitOfWork.SaveChangesAsync(ct);
+
+            return new Result<bool>(true);
+        }
     }
-}
+}
