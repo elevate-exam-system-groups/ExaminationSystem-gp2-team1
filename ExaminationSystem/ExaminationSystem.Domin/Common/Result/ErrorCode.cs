@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -37,5 +37,6 @@ namespace ExaminationSystem.Domin.Common.Result
         PasswordNotMatch = 419,
         NoResetRequest = 420,
         PasswordResetFailed = 421,
+        InvalidRefreshToken = 422,
     }
 }

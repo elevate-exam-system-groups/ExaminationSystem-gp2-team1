@@ -1,4 +1,4 @@
-﻿using ExaminationSystem.Api.Controllers;
+using ExaminationSystem.Api.Controllers;
 using ExaminationSystem.Application.Common.Models;
 using ExaminationSystem.Application.Feature.Otp.Commands.RequestOtp;
 using ExaminationSystem.Application.Feature.Otp.Commands.ResendOtp;
@@ -9,6 +9,9 @@ using ExaminationSystem.Application.Feature.Users.Command.Login;
 using ExaminationSystem.Application.Feature.Users.Command.ResetPassword;
 using ExaminationSystem.Application.Feature.Users.Command.UserRegistration;
 using ExaminationSystem.Application.Feature.Users.Commond.UserRegistration;
+using ExaminationSystem.Application.Feature.Users;
+using ExaminationSystem.Application.Feature.Users.Command.RefreshToken;
+using ExaminationSystem.Application.Feature.Users.Command.RevokeToken;
 
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -129,5 +132,34 @@ namespace ExaminationSystem.API.Controllers
 
         }
 
+        [HttpPost("refresh")]
+        [ProducesResponseType(typeof(TokenResponse), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> Refresh(
+            [FromBody] RefreshTokenRequest request,
+            CancellationToken ct)
+        {
+            var command = new RefreshTokenCommand(request.RefreshToken);
+            var result = await mediator.Send(command, ct);
+
+            return result.Match<IActionResult>(
+                tokenResponse => Ok(tokenResponse),
+                Problem);
+        }
+
+        [HttpPost("revoke")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(ProblemDetails), StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> Revoke(
+            [FromBody] RevokeTokenRequest request,
+            CancellationToken ct)
+        {
+            var command = new RevokeTokenCommand(request.RefreshToken);
+            var result = await mediator.Send(command, ct);
+
+            return result.Match<IActionResult>(
+                _ => NoContent(),
+                Problem);
+        }
     }
 }

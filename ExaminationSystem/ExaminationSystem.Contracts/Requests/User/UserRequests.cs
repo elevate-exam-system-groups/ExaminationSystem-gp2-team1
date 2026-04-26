@@ -1,4 +1,4 @@
-﻿using ExaminationSystem.Application.Common.Models;
+using ExaminationSystem.Application.Common.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -22,6 +22,7 @@ namespace ExaminationSystem.Contracts.Requests.UserUserRequests
         public sealed record LoginRequest(string Email, string Password);
         public sealed record ForgetPasswordRequest(string Email);
         public sealed record ResetPasswordRequest(string NewPassword , string ConfirmPassword);
-
+        public sealed record RefreshTokenRequest(string RefreshToken);
+        public sealed record RevokeTokenRequest(string RefreshToken);
     }
 }
