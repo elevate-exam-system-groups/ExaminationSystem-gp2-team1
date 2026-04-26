@@ -22,6 +22,8 @@ namespace ExaminationSystem.Application.Feature.Attempts.Command.Handlers
                 .Select( a=> new AttemptAnswer
                 {
                     Id = a.Id,
+                    AttemptId = a.AttemptId,
+                    QuestionId = a.QuestionId,
                     SelectedOptionId = a.SelectedOptionId,
                     AnsweredAt = a.AnsweredAt
                 }

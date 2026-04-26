@@ -17,8 +17,8 @@ namespace ExaminationSystem.Application.Feature.Quizzes.Query
             var attempt = await _Repo.GetAll().Where(a =>
                                     a.StudentId == request.UserId &&
                                      a.QuizId == request.QuizId &&
-                                     a.Status == QuizAttemptStatus.inProgress).Select(a => a.Id)
-                                     .FirstOrDefaultAsync();
+                                     a.Status == QuizAttemptStatus.inProgress).Select(a => (Guid?)a.Id)
+                                     .FirstOrDefaultAsync(cancellationToken);
 
             return RequestResult<Guid?>.Sucess(attempt);
 

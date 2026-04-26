@@ -21,11 +21,12 @@ namespace ExaminationSystem.Application.Feature.Questions.Handlers
                  .Select(q => new QuestionQuizDto
                  {
                      QuestionId = q.Id,
-                        
+                     
                      Text = q.Text,
                      QuizId = q.QuizId,
                      Options = q.Options.Select(o => new OptionDto
                      {
+                         Id = o.Id,
                          OptionId = o.Id,
                          Text = o.Text
                      }).ToList()
