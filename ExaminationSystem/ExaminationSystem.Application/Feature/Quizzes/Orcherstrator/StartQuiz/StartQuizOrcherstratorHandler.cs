@@ -48,7 +48,7 @@ public class StartQuizOrcherstratorHandler(IMediator _mediator) : IRequestHandle
 
         var attempt = await _mediator.Send(new CreateQuizAttemptCommand(request.UserId,request.QuizId));
 
-        if (attempt.IsSucess) 
+        if (!attempt.IsSucess) 
         {
             return RequestResult<StartQuizResponse>.Failure(ErrorCode.Conflict, "Failed to create quiz attempt");
         }
